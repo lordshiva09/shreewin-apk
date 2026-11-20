@@ -1,0 +1,13 @@
+# Dependency directories
+node_modules/
+
+# Backup and temp files
+*.bak
+*.bak_*
+*.tmp
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini

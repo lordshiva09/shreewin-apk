@@ -1,0 +1,17 @@
+{
+  "name": "shreewin-apk",
+  "version": "1.0.0",
+  "description": "Shreewin Clone Web Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "shreewin",
+    "mobile-app",
+    "game",
+    "ui"
+  ],
+  "author": "lordshiva09",
+  "license": "ISC"
+}
