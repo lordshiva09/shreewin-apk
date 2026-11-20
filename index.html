@@ -2,7 +2,7 @@
 <html lang="en" translate="no">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="icon" type="image/png" href="/favico.ico"/>
+    <link rel="icon" type="image/png" href="/assets/png/customer_bot.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Shree.Win</title>
             <!-- Shreewin Official CSS -->
@@ -5074,7 +5074,7 @@
               <span>Announcement</span>
             </div>
             <div class="serviceCenter__container-items__item" onclick="alert('Customer Service: Connecting to agent on Telegram...')">
-              <svg class="svg-icon icon-serverTicket"><use xlink:href="#icon-serverTicket"></use></svg>
+              <img src="/assets/png/customer_bot.png" style="width: 32px; height: 32px; object-fit: contain; margin-bottom: 4px;" alt="Customer Service">
               <span>Customer Service</span>
             </div>
             <div class="serviceCenter__container-items__item" onclick="alert('Beginner Guide: How to play WinGo and withdraw')">
@@ -5453,7 +5453,7 @@
             <span class="agency-card-text">Copy invitation code</span>
           </div>
           <div class="arrow agency-card-right">
-            <span class="agency-code-text js-user-invite">3180606130902</span>
+            <span class="agency-code-text js-user-invite">36467291608</span>
             <svg class="agency-copy-icon"><use xlink:href="#icon-copy"></use></svg>
           </div>
         </div>
@@ -5494,7 +5494,7 @@
         <!-- 6. Agent Line Customer Service -->
         <div class="promote__cell-item agency-card-item" onclick="alert('Agent line customer service: Telegram 24/7 Agent Connected')">
           <div class="label agency-card-left">
-            <svg class="agency-card-icon"><use xlink:href="#icon-server"></use></svg>
+            <img src="/assets/png/customer_bot.png" style="width: 24px; height: 24px; object-fit: contain; margin-right: 8px;" alt="Customer Service">
             <span class="agency-card-text">Agent line customer service</span>
           </div>
           <div class="arrow">
@@ -5814,10 +5814,7 @@
         </div>
       </div>
 
-      <!-- Floating Customer Service Bot -->
-      <div class="subordinate-floating-bot" onclick="alert('Customer Service: Connecting to Live Agent...')">
-        <img src="/assets/png/customer_bot.png" alt="Customer Service Bot">
-      </div>
+
     </div>
 
     <!-- Common Picker Backdrop Overlay -->
@@ -5975,6 +5972,11 @@
 
 
       <!-- Exact Live Tabbar with Elevated Turntable Center Wheel -->
+    <!-- Global Floating Customer Service Bot (Visible across entire website) -->
+  <div id="globalFloatingBot" class="global-floating-bot" onclick="alert('Customer Service: Connecting to Live Agent...')">
+    <img src="/assets/png/customer_bot.png" alt="Customer Service Bot">
+  </div>
+
   <nav class="tabbar__container" id="bottomNavBar">
     <div class="tabbar__container-item active" data-tab="home" data-nor="/assets/png/home_nor-CroMkB0V.png" data-sel="/assets/png/home_sel-uoBer_fS.png" onclick="window.location.hash='#/home'">
       <img class="tab-icon" src="/assets/png/home_sel-uoBer_fS.png" alt="Home">

@@ -2159,6 +2159,8 @@ body {
 }
 
 /* Floating Bot */
+/* Global & Subordinate Floating Customer Service Bot */
+.global-floating-bot,
 .subordinate-floating-bot {
   position: fixed;
   bottom: 80px;
@@ -2166,20 +2168,36 @@ body {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  z-index: 100;
+  z-index: 999;
   cursor: pointer;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
-  transition: transform 0.2s;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
 }
 
+@media (max-width: 400px) {
+  .global-floating-bot,
+  .subordinate-floating-bot {
+    right: 14px !important;
+  }
+}
+
+.global-floating-bot:hover,
 .subordinate-floating-bot:hover {
   transform: scale(1.08);
 }
 
+.global-floating-bot:active,
+.subordinate-floating-bot:active {
+  transform: scale(0.95);
+}
+
+.global-floating-bot img,
 .subordinate-floating-bot img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
 }
 
 /* ========================================================
