@@ -213,6 +213,8 @@ function getDailyPromotion() {
   return state.dailyPromotion;
 }
 
+let activeUserId = null;
+
 // Load saved data if exists
 if (fs.existsSync(DATA_FILE)) {
   try {
@@ -228,6 +230,8 @@ if (fs.existsSync(DATA_FILE)) {
     console.warn('Error reading data file, using defaults');
   }
 }
+
+activeUserId = (state.users && state.users[0]) ? state.users[0].id : null;
 
 function saveData() {
   try {
@@ -392,7 +396,10 @@ const server = http.createServer(async (req, res) => {
   // --- API Endpoints ---
   // 1. User Info & Session
   if (pathname === '/api/user/info' || pathname === '/api/webapi/GetUserInfo') {
-    const user = state.users[0];
+    if (!activeUserId) {
+      return sendJson(res, { code: 1, msg: 'Logged out' });
+    }
+    const user = state.users.find(u => u.id === activeUserId) || state.users[0];
     const promo = getDailyPromotion();
     return sendJson(res, {
       code: 0,
@@ -401,7 +408,7 @@ const server = http.createServer(async (req, res) => {
         userId: user.id,
         phone: user.phone,
         userPhoto: '/assets/png/1-Cz2mt-nl.png',
-        nickName: user.nickName || 'MEMBERD46ABGUH',
+        nickName: user.nickname || user.nickName || 'MEMBERD46ABGUH',
         uid: user.uid || '6130903',
         balance: user.balance,
         totalBalance: user.balance,
@@ -489,6 +496,7 @@ const server = http.createServer(async (req, res) => {
       state.users.unshift(existing);
       saveData();
     }
+    activeUserId = existing.id;
 
     return sendJson(res, {
       code: 0,
@@ -507,11 +515,25 @@ const server = http.createServer(async (req, res) => {
   // 3. Login
   if (pathname === '/api/user/login' || pathname === '/api/webapi/Login') {
     const body = await parseJson(req);
-    const phone = body.phone || body.username || '9876543210';
-    let user = state.users.find(u => u.phone === phone);
-    if (!user) {
-      user = state.users[0];
+    const phone = (body.phone || body.username || '').trim();
+    const email = (body.email || '').trim().toLowerCase();
+    const password = body.password || '';
+
+    let user = null;
+    if (phone) {
+      user = state.users.find(u => u.phone === phone);
+    } else if (email) {
+      user = state.users.find(u => (u.email || '').toLowerCase() === email);
     }
+
+    if (!user) {
+      return sendJson(res, { code: 1, msg: 'Account not found. Please check phone number or register.' });
+    }
+    if (user.password && password !== user.password) {
+      return sendJson(res, { code: 1, msg: 'Incorrect password' });
+    }
+
+    activeUserId = user.id;
     return sendJson(res, {
       code: 0,
       msg: 'Login successful',
@@ -519,10 +541,18 @@ const server = http.createServer(async (req, res) => {
         token: 'TOKEN_' + Date.now(),
         userId: user.id,
         phone: user.phone,
+        nickName: user.nickname || user.nickName || 'MEMBERD46ABGUH',
         uid: user.uid,
-        balance: user.balance
+        balance: user.balance,
+        inviteCode: user.inviteCode || '36467291608'
       }
     });
+  }
+
+  // 3.1 Logout
+  if (pathname === '/api/user/logout' || pathname === '/api/webapi/Logout') {
+    activeUserId = null;
+    return sendJson(res, { code: 0, msg: 'Logged out successfully' });
   }
 
   // 4. WinGo Status & History

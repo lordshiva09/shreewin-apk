@@ -2,19 +2,33 @@
 (function () {
   'use strict';
 
-  // ---- LOGIN PAGE HELPERS ----
+  // ---- AUTH & LOGIN PAGE HELPERS ----
+  function isLoggedIn() {
+    return localStorage.getItem('shreewin_logged_out') !== '1';
+  }
+
+  function getStaticFallbackUsers() {
+    var base = [
+      { phone: '9594558820', password: 'Pk9082pk', uid: '6130903', nickName: 'MEMBERD46ABGUH', balance: 1050, inviteCode: '36467291608' },
+      { phone: '9876543210', password: 'password123', uid: '36467291', nickName: 'MEMBER36467291', balance: 10000, inviteCode: '36467291608' },
+      { phone: '9988776655', password: 'testpass123', uid: '37805446', nickName: 'MEMBER37805446', balance: 900, inviteCode: '87682179742' }
+    ];
+    try {
+      var extra = JSON.parse(localStorage.getItem('shreewin_local_users') || '[]');
+      if (Array.isArray(extra)) return extra.concat(base);
+    } catch (e) {}
+    return base;
+  }
+
   window.updateLoginBtnState = function() {
     var tab = document.querySelector('#view-login .login_container-tab .tab.active');
     var isEmail = tab && tab.id === 'loginTab-email';
     var idVal = isEmail
       ? (document.getElementById('loginEmail') ? document.getElementById('loginEmail').value.trim() : '')
       : (document.getElementById('loginPhone') ? document.getElementById('loginPhone').value.trim() : '');
-    var pwdVal = isEmail
-      ? (document.getElementById('loginPasswordEmail') ? document.getElementById('loginPasswordEmail').value : '')
-      : (document.getElementById('loginPassword') ? document.getElementById('loginPassword').value : '');
     var btn = document.getElementById('loginSubmitBtn');
     if (btn) {
-      if (idVal.length > 0 && pwdVal.length > 0) btn.classList.add('active');
+      if (idVal.length > 0) btn.classList.add('active');
       else btn.classList.remove('active');
     }
   };
@@ -82,6 +96,9 @@
     var password = isEmail
       ? (document.getElementById('loginPasswordEmail') ? document.getElementById('loginPasswordEmail').value : '')
       : (document.getElementById('loginPassword') ? document.getElementById('loginPassword').value : '');
+    var rememberChecked = isEmail
+      ? !!(document.getElementById('rememberEmail') && document.getElementById('rememberEmail').checked)
+      : !!(document.getElementById('rememberPwd') && document.getElementById('rememberPwd').checked);
 
     if (!isEmail && (!phone || phone.length < 10)) { alert('Please enter a valid 10-digit phone number'); return; }
     if (isEmail && !email) { alert('Please enter your email'); return; }
@@ -89,11 +106,49 @@
 
     var body = isEmail ? { email, password } : { phone, password };
     var res = await api('/api/user/login', body, 'POST');
+
+    // Static hosting fallback (e.g. Cloudflare Workers where /api/* returns 404)
+    if (res && res.offline) {
+      var list = getStaticFallbackUsers();
+      var found = list.find(function(u) {
+        return isEmail ? ((u.email || '').toLowerCase() === email.toLowerCase()) : (u.phone === phone);
+      });
+      if (!found) {
+        alert('Account not found. Please check phone number or register.');
+        return;
+      }
+      if (found.password && found.password !== password) {
+        alert('Incorrect password');
+        return;
+      }
+      res = {
+        code: 0,
+        data: {
+          token: 'TOKEN_' + Date.now(),
+          phone: found.phone,
+          uid: found.uid,
+          nickName: found.nickName,
+          balance: found.balance,
+          inviteCode: found.inviteCode
+        }
+      };
+    }
+
     if (res && res.code === 0) {
+      localStorage.removeItem('shreewin_logged_out');
+      localStorage.setItem('shreewin_token', (res.data && res.data.token) || ('TOKEN_' + Date.now()));
+      if (phone) localStorage.setItem('shreewin_last_phone', phone);
+      if (rememberChecked) {
+        localStorage.setItem('shreewin_remembered', JSON.stringify({ phone: phone, email: email, password: password }));
+      } else {
+        localStorage.removeItem('shreewin_remembered');
+      }
       if (res.data) {
         state.user.phone = res.data.phone || state.user.phone;
         state.user.uid = res.data.uid || state.user.uid;
+        if (res.data.nickName) state.user.nickName = res.data.nickName;
         if (res.data.balance !== undefined) state.user.balance = res.data.balance;
+        if (res.data.inviteCode) state.user.inviteCode = res.data.inviteCode;
         updateUI();
       }
       if (typeof syncUser === 'function') await syncUser();
@@ -101,6 +156,46 @@
     } else {
       alert((res && res.msg) || 'Login failed');
     }
+  };
+
+  window.logout = async function() {
+    var savedPhone = (state.user && state.user.phone) || localStorage.getItem('shreewin_last_phone') || '';
+    localStorage.setItem('shreewin_logged_out', '1');
+    localStorage.removeItem('shreewin_token');
+    if (savedPhone) localStorage.setItem('shreewin_last_phone', savedPhone);
+
+    // Notify backend session if available (fails silently on static hosts)
+    api('/api/user/logout', {}, 'POST').catch(function() {});
+
+    // Populate login screen cleanly (matching Shree.Win logout interface)
+    window.switchLoginTab('phone');
+    var phoneInp = document.getElementById('loginPhone');
+    var pwdInp = document.getElementById('loginPassword');
+    var emailInp = document.getElementById('loginEmail');
+    var pwdEmailInp = document.getElementById('loginPasswordEmail');
+    var rememberBox = document.getElementById('rememberPwd');
+
+    var remembered = null;
+    try {
+      remembered = JSON.parse(localStorage.getItem('shreewin_remembered') || 'null');
+    } catch (e) {}
+
+    if (phoneInp) phoneInp.value = (remembered && remembered.phone) ? remembered.phone : savedPhone;
+    if (pwdInp) {
+      pwdInp.type = 'password';
+      pwdInp.value = (remembered && remembered.password) ? remembered.password : '';
+    }
+    if (emailInp) emailInp.value = (remembered && remembered.email) ? remembered.email : '';
+    if (pwdEmailInp) {
+      pwdEmailInp.type = 'password';
+      pwdEmailInp.value = '';
+    }
+    if (rememberBox) rememberBox.checked = !!remembered;
+    toggleEyeBtnIcon(document.getElementById('loginEyeBtn'), false);
+    toggleEyeBtnIcon(document.getElementById('loginEyeEmailBtn'), false);
+    window.updateLoginBtnState();
+
+    window.location.hash = '#/login';
   };
 
   // --- App State ---
@@ -138,10 +233,17 @@
       };
       if (data && method === 'POST') opts.body = JSON.stringify(data);
       const res = await fetch(path, opts);
+      if (!res.ok) {
+        return { code: res.status || 1, offline: true, msg: 'HTTP ' + res.status };
+      }
+      const ct = (res.headers.get('content-type') || '').toLowerCase();
+      if (!ct.includes('application/json')) {
+        return { code: 1, offline: true, msg: 'Non-JSON response' };
+      }
       return await res.json();
     } catch (e) {
       console.error('API Error:', e);
-      return { code: 1, msg: e.message };
+      return { code: 1, offline: true, msg: e.message };
     }
   }
 
@@ -156,6 +258,16 @@
     if (inviteCode) {
       const inviteInput = document.getElementById('regInviteCode');
       if (inviteInput) inviteInput.value = inviteCode;
+    }
+
+    const protectedRoutes = ['#/mine', '#/wallet', '#/withdraw', '#/deposit', '#/recharge', '#/promotion', '#/subordinate-data', '#/promotion/TeamSubordinate', '#/wingo', '#/activity'];
+    if (!isLoggedIn() && protectedRoutes.indexOf(routePath) !== -1) {
+      if (window.location.hash !== '#/login') {
+        window.location.hash = '#/login';
+        return;
+      }
+      showView('login');
+      return;
     }
 
     if (routePath === '#/register') {
@@ -253,6 +365,7 @@
 
   // --- Sync User Data ---
   async function syncUser() {
+    if (!isLoggedIn()) return;
     const res = await api('/api/user/info');
     if (res.code === 0 && res.data) {
       state.user = res.data;
@@ -676,8 +789,22 @@
       return;
     }
 
-    const res = await api('/api/user/register', { phone, password, inviteCode }, 'POST');
+    let res = await api('/api/user/register', { phone, password, inviteCode }, 'POST');
+    if (res && res.offline) {
+      const uid = Math.floor(10000000 + Math.random() * 90000000).toString();
+      const newInv = Math.floor(10000000000 + Math.random() * 90000000000).toString();
+      const newUser = { phone, password, uid, nickName: 'MEMBER' + uid, balance: 1000.00, inviteCode: newInv };
+      try {
+        const list = JSON.parse(localStorage.getItem('shreewin_local_users') || '[]');
+        list.unshift(newUser);
+        localStorage.setItem('shreewin_local_users', JSON.stringify(list));
+      } catch (err) {}
+      res = { code: 0, data: newUser };
+    }
     if (res.code === 0) {
+      localStorage.removeItem('shreewin_logged_out');
+      localStorage.setItem('shreewin_token', (res.data && res.data.token) || ('TOKEN_' + Date.now()));
+      localStorage.setItem('shreewin_last_phone', res.data.phone || phone);
       alert('Registration successful! Welcome to Shreewin.');
       state.user.phone = res.data.phone;
       state.user.uid = res.data.uid;
@@ -1439,6 +1566,24 @@
     const maxSub = getYesterdayDateObj();
     const subFilterDateEl = document.getElementById('subFilterDate');
     if (subFilterDateEl) subFilterDateEl.innerText = maxSub.str;
+
+    try {
+      const remembered = JSON.parse(localStorage.getItem('shreewin_remembered') || 'null');
+      const lastPhone = localStorage.getItem('shreewin_last_phone') || '';
+      const phoneInp = document.getElementById('loginPhone');
+      const pwdInp = document.getElementById('loginPassword');
+      const rememberBox = document.getElementById('rememberPwd');
+      if (phoneInp && ((remembered && remembered.phone) || (!isLoggedIn() && lastPhone))) {
+        phoneInp.value = (remembered && remembered.phone) ? remembered.phone : lastPhone;
+      }
+      if (pwdInp && remembered && remembered.password) {
+        pwdInp.value = remembered.password;
+      }
+      if (rememberBox && remembered) {
+        rememberBox.checked = true;
+      }
+      window.updateLoginBtnState();
+    } catch (e) {}
 
     handleRoute();
     syncUser();
