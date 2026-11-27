@@ -1285,6 +1285,37 @@ body {
   display: block !important;
 }
 
+/* Decrease Deposit (3rd) and Withdraw (4th) cards height by ~15% (74px -> 63px) */
+#view-mine .financialServices__container-box > div:nth-child(3),
+#view-mine .financialServices__container-box > div:nth-child(4) {
+  min-height: 63px !important;
+  height: 63px !important;
+  padding: 5px 8px !important;
+}
+
+#view-mine .financialServices__container-box > div:nth-child(3) svg,
+#view-mine .financialServices__container-box > div:nth-child(4) svg {
+  width: 28px !important;
+  height: 32px !important;
+  min-width: 28px !important;
+  min-height: 32px !important;
+}
+
+#view-mine .financialServices__container-box > div:nth-child(3) .financialServices__container-box-para,
+#view-mine .financialServices__container-box > div:nth-child(4) .financialServices__container-box-para {
+  gap: 1px !important;
+}
+
+#view-mine .financialServices__container-box > div:nth-child(3) .financialServices__container-box-para h3,
+#view-mine .financialServices__container-box > div:nth-child(4) .financialServices__container-box-para h3 {
+  line-height: 1.15 !important;
+}
+
+#view-mine .financialServices__container-box > div:nth-child(3) .financialServices__container-box-para span,
+#view-mine .financialServices__container-box > div:nth-child(4) .financialServices__container-box-para span {
+  line-height: 1.18 !important;
+}
+
 #view-mine .settingPanel__container {
   background-color: #2E2A6A !important;
   border-radius: 10.66px !important;
