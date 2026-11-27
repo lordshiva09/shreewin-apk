@@ -2,6 +2,107 @@
 (function () {
   'use strict';
 
+  // ---- LOGIN PAGE HELPERS ----
+  window.updateLoginBtnState = function() {
+    var tab = document.querySelector('#view-login .login_container-tab .tab.active');
+    var isEmail = tab && tab.id === 'loginTab-email';
+    var idVal = isEmail
+      ? (document.getElementById('loginEmail') ? document.getElementById('loginEmail').value.trim() : '')
+      : (document.getElementById('loginPhone') ? document.getElementById('loginPhone').value.trim() : '');
+    var pwdVal = isEmail
+      ? (document.getElementById('loginPasswordEmail') ? document.getElementById('loginPasswordEmail').value : '')
+      : (document.getElementById('loginPassword') ? document.getElementById('loginPassword').value : '');
+    var btn = document.getElementById('loginSubmitBtn');
+    if (btn) {
+      if (idVal.length > 0 && pwdVal.length > 0) btn.classList.add('active');
+      else btn.classList.remove('active');
+    }
+  };
+
+  window.switchLoginTab = function(tab) {
+    document.querySelectorAll('#view-login .login_container-tab .tab').forEach(function(el) { el.classList.remove('active'); });
+    document.querySelectorAll('#view-login .login-tab-content').forEach(function(el) { el.classList.remove('active'); });
+    var tabEl = document.getElementById('loginTab-' + tab);
+    var contentEl = document.getElementById('loginContent-' + tab);
+    if (tabEl) tabEl.classList.add('active');
+    if (contentEl) contentEl.classList.add('active');
+    window.updateLoginBtnState();
+  };
+
+  function toggleEyeBtnIcon(btn, isVisible) {
+    if (!btn) return;
+    if (isVisible) {
+      btn.innerHTML = '<svg class="svg-icon" viewBox="0 0 1024 1024"><use xlink:href="#icon-eye"></use></svg>';
+    } else {
+      btn.innerHTML = '<img src="/assets/png/eyeInvisible-NUKC6jpG.png" class="eye-img" alt="Hidden">';
+    }
+  }
+
+  window.toggleLoginPassword = function() {
+    var inp = document.getElementById('loginPassword');
+    if (!inp) return;
+    var show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password';
+    toggleEyeBtnIcon(document.getElementById('loginEyeBtn'), show);
+  };
+
+  window.toggleLoginPasswordEmail = function() {
+    var inp = document.getElementById('loginPasswordEmail');
+    if (!inp) return;
+    var show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password';
+    toggleEyeBtnIcon(document.getElementById('loginEyeEmailBtn'), show);
+  };
+
+  window.toggleCountryDropdown = function() {
+    var dd = document.getElementById('countryDropdown');
+    if (dd) dd.classList.toggle('open');
+  };
+
+  window.selectCountry = function(el, code) {
+    var dd = document.getElementById('countryDropdown');
+    if (dd) {
+      dd.querySelector('.login-dropdown__value span').textContent = code;
+      dd.querySelectorAll('.login-dropdown__list-item').forEach(function(it) { it.classList.remove('active'); });
+      el.classList.add('active');
+      dd.classList.remove('open');
+    }
+  };
+
+  document.addEventListener('click', function(e) {
+    var dd = document.getElementById('countryDropdown');
+    if (dd && !dd.contains(e.target)) dd.classList.remove('open');
+  });
+
+  window.handleLoginNew = async function() {
+    var tab = document.querySelector('#view-login .login_container-tab .tab.active');
+    var isEmail = tab && tab.id === 'loginTab-email';
+    var phone = isEmail ? '' : (document.getElementById('loginPhone') ? document.getElementById('loginPhone').value.trim() : '');
+    var email = isEmail ? (document.getElementById('loginEmail') ? document.getElementById('loginEmail').value.trim() : '') : '';
+    var password = isEmail
+      ? (document.getElementById('loginPasswordEmail') ? document.getElementById('loginPasswordEmail').value : '')
+      : (document.getElementById('loginPassword') ? document.getElementById('loginPassword').value : '');
+
+    if (!isEmail && (!phone || phone.length < 10)) { alert('Please enter a valid 10-digit phone number'); return; }
+    if (isEmail && !email) { alert('Please enter your email'); return; }
+    if (!password) { alert('Please enter your password'); return; }
+
+    var body = isEmail ? { email, password } : { phone, password };
+    var res = await api('/api/user/login', body, 'POST');
+    if (res && res.code === 0) {
+      if (res.data) {
+        state.user.phone = res.data.phone || state.user.phone;
+        state.user.uid = res.data.uid || state.user.uid;
+        if (res.data.balance !== undefined) state.user.balance = res.data.balance;
+        updateUI();
+      }
+      if (typeof syncUser === 'function') await syncUser();
+      window.location.hash = '#/home';
+    } else {
+      alert((res && res.msg) || 'Login failed');
+    }
+  };
+
   // --- App State ---
   const state = {
     user: {
@@ -124,9 +225,20 @@
     });
 
     // Hide bottom nav on register/login/subordinate-data/withdraw/deposit
+    const hideNav = (viewId === 'register' || viewId === 'login' || viewId === 'subordinate-data' || viewId === 'withdraw' || viewId === 'deposit');
     const nav = document.getElementById('bottomNavBar');
     if (nav) {
-      nav.style.display = (viewId === 'register' || viewId === 'login' || viewId === 'subordinate-data' || viewId === 'withdraw' || viewId === 'deposit') ? 'none' : 'flex';
+      nav.style.display = hideNav ? 'none' : 'flex';
+    }
+    const appContainer = document.getElementById('app-container');
+    if (appContainer) {
+      appContainer.style.paddingBottom = hideNav ? '0px' : '74px';
+    }
+
+    // Hide floating bot on login/register pages to match real Shree.Win
+    const bot = document.getElementById('globalFloatingBot');
+    if (bot) {
+      bot.style.display = (viewId === 'login' || viewId === 'register') ? 'none' : 'block';
     }
 
     // Top logo header only visible on home

@@ -1,0 +1,510 @@
+/* ============================================================
+   SHREEWIN LOGIN PAGE - EXACT REAL PAGE MATCH
+   Matches the user's 13 inspector screenshots & official CSS:
+   - navbar__content: 400 x 49.06
+   - login__container-heading: 400 x 106.66, padding 0 21.3332px
+   - login_container-tab: 400 x 68.79, padding 0 21.3332px
+   - phoneInput__container: 357.35 x 85.33, margin 0 0 32px
+   - phoneInput__container-input: 357.35 x 46.93, padding 0 1.0668px
+   - passwordInput__container: 357.35 x 85.33, margin 0 0 21.3332px
+   - password input: bg #2E2A6A, padding 14.4px 13.8668px
+   - signIn__container: 357.35 x 383.43
+   - signIn__container-button: 357.35 x 106.65, margin 30.4px 0 0
+   - button (Log in): 309.33 x 42.66, color #92A8E3, bg #6B63FF, font 19.2px, padding 1px 6px
+   - button.register: 309.33 x 42.66, color #A39FED, font 19.2px, margin 21.3332px 0 0, padding 1px 6px
+   ============================================================ */
+
+/* CRITICAL: Hide login view unless .active is set */
+#view-login.login__container {
+  display: none;
+}
+
+#view-login.login__container.active {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #1C1A3F;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 24px !important;
+  box-sizing: border-box;
+}
+
+/* ---- NAVBAR (400 x 49.06) ---- */
+#view-login .login-navbar.navbar__content {
+  position: relative;
+  width: 100%;
+  height: 49.06px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12.8px;
+  background-color: #1C1A3F;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+#view-login .login-navbar__back {
+  position: absolute;
+  left: 12.8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: #FFFFFF;
+}
+
+#view-login .login-navbar__back svg {
+  width: 18px;
+  height: 18px;
+}
+
+#view-login .login-navbar__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#view-login .login-navbar__logo img {
+  height: 40px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+#view-login .login-navbar__right {
+  position: absolute;
+  right: 12.8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5.33px;
+}
+
+#view-login .login-navbar__flag {
+  width: 26.67px;
+  height: 26.67px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+#view-login .login-navbar__lang {
+  font-size: 16px;
+  color: #FFFFFF;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* ---- HEADING (400 x 106.66, padding 0 21.3332px) ---- */
+#view-login .login__container-heading {
+  width: 100%;
+  min-height: 106.66px;
+  background: linear-gradient(90deg, #A088FF 0%, #5C4FFD 100%);
+  padding: 0 21.3332px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+#view-login .login__container-heading__title {
+  font-size: 17.07px;
+  font-weight: 700;
+  color: #FFFFFF;
+  padding-top: 10.67px;
+  line-height: 1.3;
+}
+
+#view-login .login__container-heading__subTitle {
+  display: flex;
+  flex-direction: column;
+  font-size: 11.73px;
+  margin-top: 11.73px;
+  margin-bottom: 21.33px;
+  color: #FFFFFF;
+  line-height: 1.45;
+  white-space: normal;
+}
+
+/* ---- TABS (400 x 68.79, padding 0 21.3332px) ---- */
+#view-login .login_container-tab {
+  width: 100%;
+  min-height: 68.79px;
+  display: flex;
+  flex-direction: row;
+  padding: 0 21.3332px;
+  background-color: #1C1A3F;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#view-login .login_container-tab .tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 7.47px 0;
+  gap: 10.67px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #92A8E3;
+  border-bottom: 1.07px solid #374963;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+#view-login .login_container-tab .tab svg {
+  width: 25.6px;
+  height: 25.6px;
+  flex-shrink: 0;
+}
+
+#view-login .login_container-tab .tab.active {
+  color: #A39FED;
+  border-bottom: 2.13px solid #A39FED;
+}
+
+/* ---- FORM WRAPPER & SIGN-IN CONTAINER (357.35 x 383.43) ---- */
+#view-login .login__container-form {
+  position: relative;
+  margin-top: 29.87px;
+  margin-bottom: 29.87px;
+  padding: 0 21.3332px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#view-login .signIn__container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#view-login .login-tab-content {
+  display: none;
+}
+
+#view-login .login-tab-content.active {
+  display: block;
+}
+
+/* ---- PHONE INPUT CONTAINER (357.35 x 85.33, margin 0 0 32px) ---- */
+#view-login .phoneInput__container {
+  margin: 0 0 32px 0;
+  box-sizing: border-box;
+}
+
+#view-login .phoneInput__container-label,
+#view-login .emailinput__container-label,
+#view-login .passwordInput__container-label {
+  display: flex;
+  align-items: center;
+  padding: 0 1.0668px;
+  margin-bottom: 12.8px;
+  color: #E3EFFF;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25.6px;
+}
+
+#view-login .phoneInput__container-label svg,
+#view-login .emailinput__container-label svg,
+#view-login .passwordInput__container-label svg {
+  width: 25.6px;
+  height: 25.6px;
+  margin-right: 6.4px;
+  color: #A39FED;
+  flex-shrink: 0;
+}
+
+#view-login .phoneInput__container-input {
+  display: flex;
+  align-items: center;
+  gap: 9.6px;
+  height: 46.93px;
+  padding: 0 1.0668px;
+  box-sizing: border-box;
+}
+
+/* Country dropdown (+91) */
+#view-login .login-dropdown {
+  position: relative;
+  width: 99.2px;
+  height: 46.93px;
+  background: #2E2A6A;
+  border-radius: 10.67px;
+  color: #92A8E3;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+#view-login .login-dropdown__value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 14px 0 16px;
+  font-size: 16px;
+  color: #92A8E3;
+  font-weight: 400;
+}
+
+#view-login .login-dropdown__arrow {
+  width: 16px;
+  height: 16px;
+  color: #92A8E3;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+#view-login .login-dropdown.open .login-dropdown__arrow {
+  transform: rotate(180deg);
+}
+
+#view-login .login-dropdown__list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 210px;
+  background: #2E2A6A;
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+#view-login .login-dropdown.open .login-dropdown__list {
+  display: block;
+}
+
+#view-login .login-dropdown__list-item {
+  padding: 11px 16px;
+  font-size: 14.93px;
+  color: #E3EFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#view-login .login-dropdown__list-item:hover,
+#view-login .login-dropdown__list-item.active {
+  background: #A39FED;
+  color: #FFFFFF;
+}
+
+/* Phone & Email & Password Inputs */
+#view-login .phoneInput__container-input > input[type="tel"],
+#view-login .emailinput__container-input > input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 46.93px;
+  background: #2E2A6A;
+  border: none;
+  border-radius: 10.67px;
+  color: #E3EFFF;
+  font-size: 14.93px;
+  padding: 14.4px 13.8668px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+#view-login .phoneInput__container-input > input::placeholder,
+#view-login .emailinput__container-input > input::placeholder,
+#view-login .passwordInput__container-input > input::placeholder {
+  color: #6B63FF !important;
+  opacity: 1;
+}
+
+/* ---- EMAIL CONTAINER ---- */
+#view-login .emailinput__container {
+  margin: 0 0 32px 0;
+  box-sizing: border-box;
+}
+
+#view-login .emailinput__container-input {
+  display: flex;
+  align-items: center;
+  height: 46.93px;
+  padding: 0 1.0668px;
+  box-sizing: border-box;
+}
+
+/* ---- PASSWORD INPUT CONTAINER (357.35 x 85.33, margin 0 0 21.3332px) ---- */
+#view-login .passwordInput__container {
+  margin: 0 0 21.3332px 0;
+  box-sizing: border-box;
+}
+
+#view-login .passwordInput__container-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 46.93px;
+  padding: 0 1.0668px;
+  box-sizing: border-box;
+}
+
+#view-login .passwordInput__container-input input[type="password"],
+#view-login .passwordInput__container-input input[type="text"] {
+  width: 100%;
+  height: 46.93px;
+  background: #2E2A6A;
+  border: none;
+  border-radius: 10.67px;
+  color: #E3EFFF;
+  font-size: 14.93px;
+  padding: 14.4px 44px 14.4px 13.8668px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+#view-login .login-eye-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: #92A8E3;
+}
+
+#view-login .login-eye-btn .eye-img {
+  width: 21.33px;
+  height: auto;
+  display: block;
+}
+
+#view-login .login-eye-btn svg {
+  width: 21.33px;
+  height: 21.33px;
+  fill: #92A8E3;
+}
+
+/* ---- REMEMBER PASSWORD & FORGOT PASSWORD ---- */
+#view-login .signIn__container-rememberRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.0668px;
+}
+
+#view-login .signIn__container-remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#view-login .login-checkbox {
+  display: none;
+}
+
+#view-login .login-checkbox-box {
+  width: 22.4px;
+  height: 22.4px;
+  border-radius: 50%;
+  border: 1px solid #92A8E3;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#view-login .login-checkbox:checked + .login-checkbox-box {
+  border-color: #A39FED;
+  background: #A39FED;
+}
+
+#view-login .login-checkbox:checked + .login-checkbox-box::after {
+  content: '';
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  transform: rotate(-45deg) translateY(-1px);
+  display: block;
+}
+
+#view-login .login-remember-label {
+  font-size: 12.8px;
+  line-height: 22.4px;
+  color: #92A8E3;
+}
+
+#view-login .signIn__container-forget {
+  flex-shrink: 0;
+  font-size: 12.8px;
+  line-height: 22.4px;
+  color: #A39FED;
+  cursor: pointer;
+}
+
+/* ---- BUTTONS (357.35 x 106.65, margin 30.4px 0 0) ---- */
+#view-login .signIn__container-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 30.4px;
+}
+
+#view-login .signIn__container-button button {
+  width: 309.33px;
+  max-width: 100%;
+  height: 42.66px;
+  padding: 1px 6px;
+  font-size: 19.2px;
+  font-weight: 700;
+  letter-spacing: 2.13px;
+  border-radius: 42.67px;
+  border: none;
+  background: #6B63FF;
+  color: #92A8E3;
+  cursor: pointer;
+  transition: opacity 0.18s, background 0.18s, color 0.18s;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+#view-login .signIn__container-button button.active {
+  background: linear-gradient(90deg, #A088FF 0%, #5C4FFD 100%);
+  color: #FFFFFF;
+}
+
+#view-login .signIn__container-button button.register {
+  margin-top: 21.3332px;
+  background: transparent;
+  color: #A39FED;
+  border: 1px solid #A39FED;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#view-login .signIn__container-button button:hover {
+  opacity: 0.92;
+}

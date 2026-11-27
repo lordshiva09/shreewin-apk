@@ -10,6 +10,7 @@
     <link rel="stylesheet" crossorigin href="/assets/css/clean-promotion.css">
     <link rel="stylesheet" crossorigin href="/assets/css/clean-mine.css">
     <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/assets/css/login-clone.css">
 </head>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; width: 0; height: 0">
@@ -5946,28 +5947,139 @@
 
 
   <!-- VIEW: LOGIN -->
-  <main id="view-login" class="sw-view">
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:14px;">
-      <button onclick="window.location.hash='#/home'" style="font-size:18px; color:#fff; background:none; border:none; cursor:pointer;">← Back</button>
-      <h3 style="font-size:17px; font-weight:700;">Login</h3>
-      <div style="width:24px;"></div>
+  <main id="view-login" class="sw-view login__container">
+
+    <!-- NAVBAR: back arrow + Shree.Win logo + EN flag -->
+    <div class="login-navbar navbar__content">
+      <button type="button" class="login-navbar__back" onclick="window.location.hash='#/home'" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 19L8.5 12L15.5 5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="login-navbar__logo">
+        <img src="/ossimg/shreewin/other/h5setting_20260828162007g5wp.png" alt="Shree.Win">
+      </div>
+      <div class="login-navbar__right">
+        <img src="/assets/png/en-Bw55K-VV.png" alt="EN" class="login-navbar__flag">
+        <span class="login-navbar__lang">EN</span>
+      </div>
     </div>
-    <form class="sw-form-card" onsubmit="handleLogin(event)">
-      <div class="sw-input-group">
-        <label class="sw-input-label">Phone Number</label>
-        <div class="sw-input-wrap">
-          <span class="sw-input-prefix">+91</span>
-          <input type="tel" id="loginPhone" class="sw-input" value="9594558820" required>
-        </div>
+
+    <!-- HEADING: horizontal purple gradient bg, "Log in" title + 2-line subtitle -->
+    <div class="login__container-heading">
+      <div class="login__container-heading__title">Log in</div>
+      <div class="login__container-heading__subTitle">
+        <span>Please log in with your phone number or email</span>
+        <span>If you forget your password, please contact customer service</span>
       </div>
-      <div class="sw-input-group">
-        <label class="sw-input-label">Password</label>
-        <div class="sw-input-wrap">
-          <input type="password" id="loginPassword" class="sw-input" value="Pk9082pk" required>
-        </div>
+    </div>
+
+    <!-- TABS: Phone Number | Email -->
+    <div class="login_container-tab">
+      <div class="tab active" id="loginTab-phone" onclick="switchLoginTab('phone')">
+        <svg class="svg-icon"><use xlink:href="#icon-phone"></use></svg>
+        <span>Phone Number</span>
       </div>
-      <button type="submit" class="sw-btn-submit">Log in</button>
-    </form>
+      <div class="tab" id="loginTab-email" onclick="switchLoginTab('email')">
+        <svg class="svg-icon"><use xlink:href="#icon-email"></use></svg>
+        <span>Email</span>
+      </div>
+    </div>
+
+    <!-- SIGN IN FORM CONTAINER -->
+    <div class="login__container-form">
+      <div class="signIn__container" id="loginFormContainer">
+
+        <!-- PHONE TAB CONTENT -->
+        <div class="login-tab-content active" id="loginContent-phone">
+
+          <!-- Phone Number Input -->
+          <div class="phoneInput__container">
+            <div class="phoneInput__container-label">
+              <svg class="svg-icon phoneInput__container-label__icon"><use xlink:href="#icon-phone"></use></svg>
+              <span>Phone number</span>
+            </div>
+            <div class="phoneInput__container-input">
+              <div class="login-dropdown" id="countryDropdown" onclick="toggleCountryDropdown()">
+                <div class="login-dropdown__value">
+                  <span>+91</span>
+                  <svg class="login-dropdown__arrow" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="login-dropdown__list" id="countryDropdownList">
+                  <div class="login-dropdown__list-item active" onclick="event.stopPropagation(); selectCountry(this, '+91')"><span>🇮🇳</span> India +91</div>
+                  <div class="login-dropdown__list-item" onclick="event.stopPropagation(); selectCountry(this, '+1')"><span>🇺🇸</span> USA +1</div>
+                  <div class="login-dropdown__list-item" onclick="event.stopPropagation(); selectCountry(this, '+44')"><span>🇬🇧</span> UK +44</div>
+                </div>
+              </div>
+              <input type="tel" id="loginPhone" placeholder="Please enter the phone number" autocomplete="tel" oninput="updateLoginBtnState()">
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="passwordInput__container">
+            <div class="passwordInput__container-label">
+              <svg class="svg-icon passwordInput__container-label__icon"><use xlink:href="#icon-editPswIcon"></use></svg>
+              <span>Password</span>
+            </div>
+            <div class="passwordInput__container-input">
+              <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" oninput="updateLoginBtnState()">
+              <button type="button" class="login-eye-btn" id="loginEyeBtn" onclick="toggleLoginPassword()" tabindex="-1" aria-label="Toggle password">
+                <img src="/assets/png/eyeInvisible-NUKC6jpG.png" class="eye-img" alt="Hidden">
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember + Forgot row -->
+          <div class="signIn__container-rememberRow">
+            <label class="signIn__container-remember">
+              <input type="checkbox" id="rememberPwd" class="login-checkbox">
+              <span class="login-checkbox-box"></span>
+              <span class="login-remember-label">Remember password</span>
+            </label>
+            <span class="signIn__container-forget" onclick="alert('Please contact customer service to reset your password.')">Forgot password?</span>
+          </div>
+        </div>
+
+        <!-- EMAIL TAB CONTENT -->
+        <div class="login-tab-content" id="loginContent-email">
+          <div class="emailinput__container">
+            <div class="emailinput__container-label">
+              <svg class="svg-icon emailinput__container-label__icon"><use xlink:href="#icon-email"></use></svg>
+              <span>Email</span>
+            </div>
+            <div class="emailinput__container-input">
+              <input type="email" id="loginEmail" placeholder="Please enter your email" oninput="updateLoginBtnState()">
+            </div>
+          </div>
+          <div class="passwordInput__container">
+            <div class="passwordInput__container-label">
+              <svg class="svg-icon passwordInput__container-label__icon"><use xlink:href="#icon-editPswIcon"></use></svg>
+              <span>Password</span>
+            </div>
+            <div class="passwordInput__container-input">
+              <input type="password" id="loginPasswordEmail" placeholder="Password" oninput="updateLoginBtnState()">
+              <button type="button" class="login-eye-btn" id="loginEyeEmailBtn" onclick="toggleLoginPasswordEmail()" tabindex="-1" aria-label="Toggle password">
+                <img src="/assets/png/eyeInvisible-NUKC6jpG.png" class="eye-img" alt="Hidden">
+              </button>
+            </div>
+          </div>
+          <div class="signIn__container-rememberRow">
+            <label class="signIn__container-remember">
+              <input type="checkbox" id="rememberEmail" class="login-checkbox">
+              <span class="login-checkbox-box"></span>
+              <span class="login-remember-label">Remember password</span>
+            </label>
+            <span class="signIn__container-forget" onclick="alert('Please contact customer service to reset your password.')">Forgot password?</span>
+          </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="signIn__container-button">
+          <button type="button" id="loginSubmitBtn" onclick="handleLoginNew()">Log in</button>
+          <button type="button" class="register" onclick="window.location.hash='#/register'">Register</button>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
 

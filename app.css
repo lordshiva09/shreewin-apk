@@ -1,7 +1,11 @@
 /* Shreewin Exact Live Theme */
 html {
-  font-size: 37.5px;
+  font-size: 37.5px !important;
   background-color: #3e414f;
+  min-height: 100%;
+  height: auto !important;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 :root {
@@ -42,8 +46,20 @@ body {
   color: var(--sw-text);
   display: flex;
   justify-content: center;
+  align-items: flex-start !important;
   min-height: 100vh;
+  height: auto !important;
   margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+#app {
+  width: 100%;
+  max-width: 400px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: var(--sw-bg);
 }
 
 #app-container {
@@ -56,7 +72,7 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 50px rgba(0,0,0,0.9);
-  padding-bottom: 70px;
+  padding-bottom: 74px;
 }
 
 /* Official Header (Exact 374.4 x 64, Logo 170.66 x 64, Padding 16px 0 0) - ONLY ON HOMEPAGE */
@@ -67,9 +83,10 @@ body {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  width: 374.4px !important;
+  width: 100% !important;
+  max-width: 400px !important;
   height: 64px !important;
-  padding: 16px 0px 0px !important;
+  padding: 16px 12.8px 0px !important;
   margin: 0 auto !important;
   background-color: var(--sw-bg) !important;
   position: sticky !important;
@@ -101,9 +118,9 @@ body {
 
 /* Notice Bar */
 .noticeBar__container {
-  width: 374.4px !important;
+  width: calc(100% - 25.6px) !important;
+  max-width: 374.4px !important;
   height: 42.66px !important;
-  max-width: 100% !important;
   box-sizing: border-box !important;
   margin: 6px auto 12px auto !important;
   background: #252157 !important;
@@ -166,8 +183,8 @@ body {
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(0,0,0,0.4);
   aspect-ratio: 1053 / 481;
-  width: 374.4px !important;
-  max-width: 100% !important;
+  width: calc(100% - 25.6px) !important;
+  max-width: 374.4px !important;
 }
 .banner-track {
   display: flex;
@@ -226,9 +243,9 @@ body {
 .game__nav-wrapper::-webkit-scrollbar { display: none; }
 .game__nav {
   display: flex !important;
-  width: 400px !important;
+  width: 100% !important;
   height: 80.25px !important;
-  margin: 4.2668px -12.8px 0px !important;
+  margin: 4.2668px 0px 0px !important;
   padding: 0px 12.8px !important;
   gap: 4.8px !important;
   box-sizing: border-box !important;
@@ -323,7 +340,7 @@ body {
 
 .lobby-item__row {
   display: grid !important;
-  grid-template-columns: repeat(3, 118.26px) !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 9.81px !important;
 }
 
@@ -347,20 +364,16 @@ body {
   position: relative !important;
 }
 
-/* Lottery Cards: Exact 118.26 x 94.81 (ratio 222 / 178) */
+/* Lottery Cards: Exact 118.26 x 94.81 at 400px (ratio 222 / 178) */
 .lobby-item--lottery .game-card__img {
-  width: 118.26px !important;
-  height: 94.81px !important;
+  width: 100% !important;
+  height: auto !important;
   aspect-ratio: 222 / 178 !important;
 }
 
 .lobby-item--lottery .game-card__img img {
-  width: 118.26px !important;
-  height: 94.81px !important;
-  object-fit: cover !important;
-  display: block !important;
-  border-radius: 10px !important;
-}
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover !important;
   display: block !important;
   border-radius: 10px !important;
@@ -955,7 +968,7 @@ body {
 }
 
 #view-mine .userInfo__container-content-wrapper {
-  width: 304.88px !important;
+  width: 100% !important;
   height: 74.66px !important;
   display: flex !important;
   align-items: center !important;
@@ -1081,7 +1094,7 @@ body {
 }
 
 #view-mine .totalSavings__container-header-box {
-  width: 339.2px !important;
+  width: 100% !important;
   height: 58.66px !important;
   max-width: 100% !important;
   display: flex !important;
@@ -1207,16 +1220,16 @@ body {
 }
 
 #view-mine .financialServices__container-box {
-  display: flex !important;
-  justify-content: space-between !important;
-  flex-wrap: wrap !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   gap: 10.6668px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
 #view-mine .financialServices__container-box > div {
-  width: 181.86px !important;
+  width: 100% !important;
+  min-width: 0 !important;
   min-height: 72px !important;
   background-color: #2E2A6A !important;
   border-radius: 10.66px !important;
@@ -1265,7 +1278,7 @@ body {
   font-size: 11px !important;
   font-weight: 500 !important;
   color: #857aff !important;
-  line-height: 1.2 !important;
+  line-height: 1.4 !important;
   white-space: nowrap !important;
   text-overflow: ellipsis !important;
   overflow: hidden !important;
@@ -2857,4 +2870,56 @@ body {
   background: #2E2868;
   border-color: #7A6DF4;
   color: #FFFFFF;
+}
+
+
+/* Clean View Container & Fixed Bottom Tabbar */
+.sw-view {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+.sw-view.active {
+  display: flex;
+  flex: 1 0 auto;
+}
+
+.tabbar__container {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  z-index: 1000 !important;
+  background: #1C1A3F !important;
+}
+
+/* Fix missing icon-font glyph in Vant arrow icons across Mine & Settings */
+.van-icon-arrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-style: normal;
+}
+.van-icon-arrow::before {
+  content: "" !important;
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+  display: block;
+}
+
+@media screen and (max-width: 400px) {
+  #app,
+  #app-container,
+  .tabbar__container {
+    max-width: 100% !important;
+  }
 }
