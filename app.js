@@ -88,7 +88,19 @@
     if (dd && !dd.contains(e.target)) dd.classList.remove('open');
   });
 
+  var loginInProgress = false;
+
+  function setLoginLoading(visible) {
+    var ov = document.getElementById('loginLoadingOverlay');
+    if (ov) {
+      if (visible) ov.classList.add('show');
+      else ov.classList.remove('show');
+    }
+  }
+
   window.handleLoginNew = async function() {
+    if (loginInProgress) return;
+
     var tab = document.querySelector('#view-login .login_container-tab .tab.active');
     var isEmail = tab && tab.id === 'loginTab-email';
     var phone = isEmail ? '' : (document.getElementById('loginPhone') ? document.getElementById('loginPhone').value.trim() : '');
@@ -104,57 +116,73 @@
     if (isEmail && !email) { alert('Please enter your email'); return; }
     if (!password) { alert('Please enter your password'); return; }
 
-    var body = isEmail ? { email, password } : { phone, password };
-    var res = await api('/api/user/login', body, 'POST');
+    loginInProgress = true;
+    setLoginLoading(true);
 
-    // Static hosting fallback (e.g. Cloudflare Workers where /api/* returns 404)
-    if (res && res.offline) {
-      var list = getStaticFallbackUsers();
-      var found = list.find(function(u) {
-        return isEmail ? ((u.email || '').toLowerCase() === email.toLowerCase()) : (u.phone === phone);
-      });
-      if (!found) {
-        alert('Account not found. Please check phone number or register.');
-        return;
-      }
-      if (found.password && found.password !== password) {
-        alert('Incorrect password');
-        return;
-      }
-      res = {
-        code: 0,
-        data: {
-          token: 'TOKEN_' + Date.now(),
-          phone: found.phone,
-          uid: found.uid,
-          nickName: found.nickName,
-          balance: found.balance,
-          inviteCode: found.inviteCode
+    try {
+      var body = isEmail ? { email, password } : { phone, password };
+      var results = await Promise.all([
+        api('/api/user/login', body, 'POST'),
+        new Promise(function(resolve) { setTimeout(resolve, 1200); })
+      ]);
+      var res = results[0];
+
+      // Static hosting fallback (e.g. Cloudflare Workers where /api/* returns 404)
+      if (res && res.offline) {
+        var list = getStaticFallbackUsers();
+        var found = list.find(function(u) {
+          return isEmail ? ((u.email || '').toLowerCase() === email.toLowerCase()) : (u.phone === phone);
+        });
+        if (!found) {
+          setLoginLoading(false);
+          alert('Account not found. Please check phone number or register.');
+          return;
         }
-      };
-    }
+        if (found.password && found.password !== password) {
+          setLoginLoading(false);
+          alert('Incorrect password');
+          return;
+        }
+        res = {
+          code: 0,
+          data: {
+            token: 'TOKEN_' + Date.now(),
+            phone: found.phone,
+            uid: found.uid,
+            nickName: found.nickName,
+            balance: found.balance,
+            inviteCode: found.inviteCode
+          }
+        };
+      }
 
-    if (res && res.code === 0) {
-      localStorage.removeItem('shreewin_logged_out');
-      localStorage.setItem('shreewin_token', (res.data && res.data.token) || ('TOKEN_' + Date.now()));
-      if (phone) localStorage.setItem('shreewin_last_phone', phone);
-      if (rememberChecked) {
-        localStorage.setItem('shreewin_remembered', JSON.stringify({ phone: phone, email: email, password: password }));
+      if (res && res.code === 0) {
+        localStorage.removeItem('shreewin_logged_out');
+        localStorage.setItem('shreewin_token', (res.data && res.data.token) || ('TOKEN_' + Date.now()));
+        if (phone) localStorage.setItem('shreewin_last_phone', phone);
+        if (rememberChecked) {
+          localStorage.setItem('shreewin_remembered', JSON.stringify({ phone: phone, email: email, password: password }));
+        } else {
+          localStorage.removeItem('shreewin_remembered');
+        }
+        if (res.data) {
+          state.user.phone = res.data.phone || state.user.phone;
+          state.user.uid = res.data.uid || state.user.uid;
+          if (res.data.nickName) state.user.nickName = res.data.nickName;
+          if (res.data.balance !== undefined) state.user.balance = res.data.balance;
+          if (res.data.inviteCode) state.user.inviteCode = res.data.inviteCode;
+          updateUI();
+        }
+        if (typeof syncUser === 'function') await syncUser();
+        setLoginLoading(false);
+        window.location.hash = '#/home';
       } else {
-        localStorage.removeItem('shreewin_remembered');
+        setLoginLoading(false);
+        alert((res && res.msg) || 'Login failed');
       }
-      if (res.data) {
-        state.user.phone = res.data.phone || state.user.phone;
-        state.user.uid = res.data.uid || state.user.uid;
-        if (res.data.nickName) state.user.nickName = res.data.nickName;
-        if (res.data.balance !== undefined) state.user.balance = res.data.balance;
-        if (res.data.inviteCode) state.user.inviteCode = res.data.inviteCode;
-        updateUI();
-      }
-      if (typeof syncUser === 'function') await syncUser();
-      window.location.hash = '#/home';
-    } else {
-      alert((res && res.msg) || 'Login failed');
+    } finally {
+      setLoginLoading(false);
+      loginInProgress = false;
     }
   };
 

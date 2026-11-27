@@ -6082,6 +6082,25 @@
 
   </main>
 
+  <!-- Shree.Win Login Loading Overlay (1.2s) -->
+  <div id="loginLoadingOverlay" class="login-loading-overlay" aria-hidden="true">
+    <div class="login-loading-box">
+      <svg class="login-loading-ring" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="loginRingGrad" x1="12" y1="80" x2="148" y2="80" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#6B63FF"/>
+            <stop offset="55%" stop-color="#8B82FF"/>
+            <stop offset="100%" stop-color="#B8B2FF"/>
+          </linearGradient>
+        </defs>
+        <!-- Rotating purple arc (~260deg) + tip dot matching Shree.Win loader -->
+        <path d="M 76 149 A 69 69 0 1 1 148.5 76" stroke="url(#loginRingGrad)" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+        <circle cx="147.8" cy="89" r="4.2" fill="#B8B2FF"/>
+      </svg>
+      <img src="/ossimg/shreewin/other/h5setting_20260828162007g5wp.png" alt="Shree.Win" class="login-loading-logo">
+    </div>
+  </div>
+
 
       <!-- Exact Live Tabbar with Elevated Turntable Center Wheel -->
     <!-- Global Floating Customer Service Bot (Visible across entire website) -->

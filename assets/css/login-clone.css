@@ -508,3 +508,51 @@
 #view-login .signIn__container-button button:hover {
   opacity: 0.92;
 }
+
+/* ---- LOGIN LOADING OVERLAY (1.2s Shree.Win Spinner) ---- */
+.login-loading-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.35);
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.login-loading-overlay.show {
+  display: flex;
+}
+
+.login-loading-box {
+  position: relative;
+  width: 156px;
+  height: 156px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-loading-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: loginRingSpin 0.95s linear infinite;
+}
+
+.login-loading-logo {
+  position: relative;
+  z-index: 2;
+  width: 112px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+@keyframes loginRingSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
