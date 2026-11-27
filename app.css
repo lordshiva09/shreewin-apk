@@ -1012,8 +1012,8 @@ body {
 }
 
 #view-mine .userInfo__container-content-nickname h3 {
-  font-size: 15px !important;
-  font-weight: 700 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
   color: #ffffff !important;
   margin: 0 !important;
   letter-spacing: 0.2px;
@@ -1038,8 +1038,8 @@ body {
   justify-content: space-around !important;
   background: #FFA840 !important;
   color: #ffffff !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
+  font-size: 12.5px !important;
+  font-weight: 400 !important;
   padding: 2.67px 0 !important;
   border-radius: 21.33px !important;
   margin: 0 !important;
@@ -1055,8 +1055,8 @@ body {
 
 #view-mine .userInfo__container-content-logintime {
   font-size: 12.5px !important;
-  color: #E3EFFF !important;
-  font-weight: 500 !important;
+  color: #FFFFFF !important;
+  font-weight: 400 !important;
   margin: 0 !important;
   line-height: 1.2 !important;
 }
@@ -1233,7 +1233,7 @@ body {
   min-height: 72px !important;
   background-color: #2E2A6A !important;
   border-radius: 10.66px !important;
-  padding: 8px 10px !important;
+  padding: 8px 9px !important;
   display: flex !important;
   align-items: center !important;
   gap: 7px !important;
@@ -1245,10 +1245,10 @@ body {
 }
 
 #view-mine .financialServices__container-box > div svg {
-  width: 32px !important;
-  height: 38px !important;
-  min-width: 32px !important;
-  min-height: 38px !important;
+  width: 28px !important;
+  height: 34px !important;
+  min-width: 28px !important;
+  min-height: 34px !important;
   flex-shrink: 0 !important;
 }
 
@@ -1257,31 +1257,31 @@ body {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  gap: 2px !important;
+  gap: 3px !important;
   flex: 1 !important;
   min-width: 0 !important;
-  overflow: hidden !important;
+  overflow: visible !important;
 }
 
 #view-mine .financialServices__container-box-para h3 {
-  font-size: 14px !important;
-  font-weight: 700 !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
   color: #ffffff !important;
   margin: 0 !important;
-  line-height: 1.15 !important;
+  line-height: 1.2 !important;
   white-space: nowrap !important;
   text-overflow: ellipsis !important;
   overflow: hidden !important;
 }
 
 #view-mine .financialServices__container-box-para span {
-  font-size: 11px !important;
-  font-weight: 500 !important;
-  color: #857aff !important;
-  line-height: 1.4 !important;
-  white-space: nowrap !important;
-  text-overflow: ellipsis !important;
-  overflow: hidden !important;
+  font-size: 10.5px !important;
+  font-weight: 400 !important;
+  color: #92A8E3 !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
   display: block !important;
 }
 
