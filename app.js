@@ -309,7 +309,7 @@
       syncUser();
     } else if (routePath === '#/promotion') {
       showView('promotion');
-      syncPromotion();
+      window.triggerPromotionPreload();
     } else if (routePath === '#/subordinate-data' || routePath === '#/promotion/TeamSubordinate') {
       showView('subordinate-data');
       const maxSub = getYesterdayDateObj();
@@ -331,6 +331,7 @@
       }
     } else if (routePath === '#/mine') {
       showView('mine');
+      syncUser();
     } else if (routePath === '#/activity') {
       showView('activity');
     } else if (routePath === '#/withdraw') {
@@ -341,6 +342,7 @@
       syncUser();
     } else {
       showView('home');
+      syncUser();
     }
   }
 
@@ -398,7 +400,7 @@
     if (res.code === 0 && res.data) {
       state.user = res.data;
       updateUI();
-      if (res.data.dailyPromotion) {
+      if (!promoLoadingActive && res.data.dailyPromotion) {
         renderPromotion(res.data.dailyPromotion);
       }
     }
@@ -528,7 +530,39 @@
     return generateHistoryEntryForDate(dateStr);
   }
 
-  async function syncPromotion() {
+  let promoLoadingActive = false;
+  let promoLoadSeq = 0;
+
+  function showPromotionPreloadUI() {
+    const tableCard = document.querySelector('#view-promotion .info_content');
+    if (tableCard) tableCard.classList.add('promo-preloading');
+
+    const yEl = document.getElementById('promoYesterdayCommission');
+    if (yEl) yEl.innerText = '0';
+
+    const drEl = document.getElementById('promoDirectRegister');
+    if (drEl) drEl.innerText = '0';
+    const trEl = document.getElementById('promoTeamRegister');
+    if (trEl) trEl.innerText = '0';
+
+    ['promoDirectDepositNum', 'promoDirectDepositAmt', 'promoDirectFirstDeposit',
+     'promoTeamDepositNum', 'promoTeamDepositAmt', 'promoTeamFirstDeposit'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerText = '';
+    });
+
+    ['promoWeekCommission', 'promoTotalCommission', 'promoTotalDirectSub', 'promoTotalTeamSub'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerText = '0';
+    });
+  }
+
+  function hidePromotionPreloadUI() {
+    const tableCard = document.querySelector('#view-promotion .info_content');
+    if (tableCard) tableCard.classList.remove('promo-preloading');
+  }
+
+  async function fetchPromotionData() {
     let promo = null;
     let history = null;
     try {
@@ -565,7 +599,31 @@
       };
     }
 
-    renderPromotion(promo, history);
+    return { promo, history };
+  }
+
+  window.triggerPromotionPreload = async function () {
+    const seq = ++promoLoadSeq;
+    promoLoadingActive = true;
+    showPromotionPreloadUI();
+
+    const [data] = await Promise.all([
+      fetchPromotionData(),
+      new Promise(resolve => setTimeout(resolve, 250))
+    ]);
+
+    if (seq !== promoLoadSeq) return;
+    promoLoadingActive = false;
+    hidePromotionPreloadUI();
+    renderPromotion(data.promo, data.history);
+  };
+
+  async function syncPromotion() {
+    const data = await fetchPromotionData();
+    if (!promoLoadingActive) {
+      hidePromotionPreloadUI();
+      renderPromotion(data.promo, data.history);
+    }
   }
 
   function renderPromotion(promo, history) {
@@ -635,6 +693,10 @@
     document.querySelectorAll('.js-user-balance').forEach(el => {
       el.innerText = '₹' + parseFloat(state.user.balance).toFixed(2);
     });
+    // Nickname
+    document.querySelectorAll('.js-user-nick').forEach(el => {
+      if (state.user.nickName) el.innerText = state.user.nickName;
+    });
     // UID
     document.querySelectorAll('.js-user-uid').forEach(el => {
       el.innerText = state.user.uid;
@@ -648,6 +710,100 @@
       el.innerText = state.user.inviteCode;
     });
   }
+
+  window.copyCurrentUID = function () {
+    const uid = String(state.user.uid || '');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(uid).then(() => alert('UID Copied: ' + uid)).catch(() => alert('UID: ' + uid));
+    } else {
+      alert('UID: ' + uid);
+    }
+  };
+
+  let cachedTransactions = [];
+  let activeHistoryFilter = 'ALL';
+
+  function formatTxnTime(isoStr) {
+    if (!isoStr) return '--';
+    const d = new Date(isoStr);
+    if (isNaN(d.getTime())) return String(isoStr);
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  function renderHistoryList(filterType) {
+    activeHistoryFilter = filterType || 'ALL';
+    const titleEl = document.getElementById('historyModalTitle');
+    if (titleEl) {
+      titleEl.innerText = activeHistoryFilter === 'WITHDRAW'
+        ? 'Withdrawal History'
+        : activeHistoryFilter === 'RECHARGE'
+          ? 'Deposit History'
+          : 'Transaction History';
+    }
+    document.querySelectorAll('#historyModal .sw-history-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-type') === activeHistoryFilter);
+    });
+
+    const listEl = document.getElementById('historyModalList');
+    if (!listEl) return;
+
+    const items = activeHistoryFilter === 'ALL'
+      ? cachedTransactions
+      : cachedTransactions.filter(t => String(t.type || '').toUpperCase() === activeHistoryFilter);
+
+    if (!items || items.length === 0) {
+      listEl.innerHTML = '<div class="sw-history-empty">No records found</div>';
+      return;
+    }
+
+    listEl.innerHTML = items.map(t => {
+      const typ = String(t.type || 'TXN').toUpperCase();
+      const status = String(t.status || 'SUCCESS').toUpperCase();
+      const badgeCls = status === 'SUCCESS' ? 'success' : status === 'PENDING' ? 'pending' : 'failed';
+      const isDeposit = typ === 'RECHARGE' || typ === 'WIN' || typ === 'BONUS';
+      const label = typ === 'RECHARGE' ? 'Deposit' : typ === 'WITHDRAW' ? 'Withdraw' : typ;
+      const acct = t.account ? ` · ${t.account}` : '';
+      return `
+        <div class="sw-history-item">
+          <div class="sw-history-row">
+            <span class="sw-history-type">${label} (${t.channel || 'Fast UPI'})</span>
+            <span class="sw-history-amt ${isDeposit ? 'is-recharge' : ''}">${isDeposit ? '+' : '-'}₹${parseFloat(t.amount || 0).toFixed(2)}</span>
+          </div>
+          <div class="sw-history-row">
+            <span class="sw-history-meta">${t.id || ''}${acct}</span>
+            <span class="sw-history-badge ${badgeCls}">${status}</span>
+          </div>
+          <div class="sw-history-row">
+            <span class="sw-history-meta">${formatTxnTime(t.time)}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.openHistoryModal = async function (filterType) {
+    const modal = document.getElementById('historyModal');
+    if (!modal) return;
+    modal.classList.add('open');
+    const listEl = document.getElementById('historyModalList');
+    if (listEl) listEl.innerHTML = '<div class="sw-history-empty">Loading records...</div>';
+
+    const res = await api('/api/wallet/transactions');
+    if (res && res.code === 0 && res.data && Array.isArray(res.data.list)) {
+      cachedTransactions = res.data.list;
+    }
+    renderHistoryList(filterType || 'ALL');
+  };
+
+  window.filterHistoryModal = function (filterType) {
+    renderHistoryList(filterType);
+  };
+
+  window.closeHistoryModal = function () {
+    const modal = document.getElementById('historyModal');
+    if (modal) modal.classList.remove('open');
+  };
 
   // --- WinGo Engine Sync ---
   let lastPeriod = null;
@@ -1619,6 +1775,7 @@
     syncWinGo();
     syncMyBets();
     setInterval(syncWinGo, 1000);
+    setInterval(syncUser, 5000);
     setInterval(syncPromotion, 60000); // Check and sync daily promotion data
   });
 })();

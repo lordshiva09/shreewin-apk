@@ -4,13 +4,14 @@
       "id": "USR10000",
       "phone": "9594558820",
       "password": "Pk9082pk",
-      "balance": 1050,
+      "balance": 3999,
       "uid": "6130903",
       "inviteCode": "36467291608",
       "inviterCode": "",
       "vipLevel": 0,
       "createdAt": "2026-11-15T04:16:00.000Z",
-      "nickname": "MEMBERD46ABGUH"
+      "nickname": "MEMBERD46ABGUH",
+      "nickName": "MEMBERD46ABGUH"
     },
     {
       "id": "USR10002",
@@ -56,360 +57,360 @@
     }
   ],
   "wingo": {
-    "period": 20261114004,
+    "period": 20261114052,
     "timeRemaining": 0,
     "duration": 30,
     "forcedOutcome": null,
     "history": [
       {
-        "period": 20261114004,
-        "number": 1,
-        "color": "green",
-        "size": "Small",
-        "time": "18:10:26"
-      },
-      {
-        "period": 20261114003,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "18:09:55"
-      },
-      {
-        "period": 20261114002,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "18:09:24"
-      },
-      {
-        "period": 20261114001,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "18:08:53"
-      },
-      {
-        "period": 20261114025,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "18:07:27"
-      },
-      {
-        "period": 20261114024,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "18:06:56"
-      },
-      {
-        "period": 20261114023,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "18:06:25"
-      },
-      {
-        "period": 20261114022,
-        "number": 1,
-        "color": "green",
-        "size": "Small",
-        "time": "18:05:54"
-      },
-      {
-        "period": 20261114021,
-        "number": 1,
-        "color": "green",
-        "size": "Small",
-        "time": "18:05:23"
-      },
-      {
-        "period": 20261114020,
-        "number": 1,
-        "color": "green",
-        "size": "Small",
-        "time": "18:04:52"
-      },
-      {
-        "period": 20261114019,
-        "number": 2,
+        "period": 20261114052,
+        "number": 4,
         "color": "red",
         "size": "Small",
-        "time": "18:04:21"
+        "time": "21:00:55"
       },
       {
-        "period": 20261114018,
-        "number": 3,
-        "color": "green",
+        "period": 20261114051,
+        "number": 4,
+        "color": "red",
         "size": "Small",
-        "time": "18:03:50"
+        "time": "21:00:24"
       },
       {
-        "period": 20261114017,
-        "number": 3,
-        "color": "green",
+        "period": 20261114050,
+        "number": 4,
+        "color": "red",
         "size": "Small",
-        "time": "18:03:19"
+        "time": "20:59:53"
       },
       {
-        "period": 20261114016,
+        "period": 20261114049,
+        "number": 4,
+        "color": "red",
+        "size": "Small",
+        "time": "20:59:22"
+      },
+      {
+        "period": 20261114048,
         "number": 7,
         "color": "green",
         "size": "Big",
-        "time": "18:02:48"
+        "time": "20:58:51"
       },
       {
-        "period": 20261114015,
-        "number": 8,
-        "color": "red",
-        "size": "Big",
-        "time": "18:02:17"
-      },
-      {
-        "period": 20261114014,
-        "number": 3,
-        "color": "green",
+        "period": 20261114047,
+        "number": 0,
+        "color": "violet-red",
         "size": "Small",
-        "time": "18:01:46"
+        "time": "20:58:20"
       },
       {
-        "period": 20261114013,
-        "number": 9,
-        "color": "green",
+        "period": 20261114046,
+        "number": 5,
+        "color": "violet-green",
         "size": "Big",
-        "time": "18:01:15"
+        "time": "20:57:49"
       },
       {
-        "period": 20261114012,
-        "number": 7,
-        "color": "green",
-        "size": "Big",
-        "time": "18:00:44"
-      },
-      {
-        "period": 20261114011,
-        "number": 2,
-        "color": "red",
-        "size": "Small",
-        "time": "18:00:13"
-      },
-      {
-        "period": 20261114010,
+        "period": 20261114045,
         "number": 6,
         "color": "red",
         "size": "Big",
-        "time": "17:59:42"
+        "time": "20:57:18"
       },
       {
-        "period": 20261114009,
+        "period": 20261114044,
+        "number": 8,
+        "color": "red",
+        "size": "Big",
+        "time": "20:56:46"
+      },
+      {
+        "period": 20261114043,
         "number": 4,
         "color": "red",
         "size": "Small",
-        "time": "17:59:11"
+        "time": "20:56:15"
       },
       {
-        "period": 20261114008,
-        "number": 7,
-        "color": "green",
-        "size": "Big",
-        "time": "17:58:40"
-      },
-      {
-        "period": 20261114007,
-        "number": 1,
-        "color": "green",
-        "size": "Small",
-        "time": "17:58:09"
-      },
-      {
-        "period": 20261114006,
+        "period": 20261114042,
         "number": 8,
         "color": "red",
         "size": "Big",
-        "time": "17:57:38"
+        "time": "20:55:44"
       },
       {
-        "period": 20261114005,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "17:57:07"
-      },
-      {
-        "period": 20261114004,
-        "number": 0,
-        "color": "violet-red",
-        "size": "Small",
-        "time": "17:56:36"
-      },
-      {
-        "period": 20261114003,
-        "number": 0,
-        "color": "violet-red",
-        "size": "Small",
-        "time": "17:56:04"
-      },
-      {
-        "period": 20261114002,
-        "number": 8,
-        "color": "red",
-        "size": "Big",
-        "time": "17:55:33"
-      },
-      {
-        "period": 20261114001,
+        "period": 20261114041,
         "number": 9,
         "color": "green",
         "size": "Big",
-        "time": "17:55:02"
+        "time": "20:55:13"
+      },
+      {
+        "period": 20261114040,
+        "number": 6,
+        "color": "red",
+        "size": "Big",
+        "time": "20:54:42"
+      },
+      {
+        "period": 20261114039,
+        "number": 2,
+        "color": "red",
+        "size": "Small",
+        "time": "20:54:11"
+      },
+      {
+        "period": 20261114038,
+        "number": 9,
+        "color": "green",
+        "size": "Big",
+        "time": "20:53:39"
+      },
+      {
+        "period": 20261114037,
+        "number": 2,
+        "color": "red",
+        "size": "Small",
+        "time": "20:53:08"
+      },
+      {
+        "period": 20261114036,
+        "number": 4,
+        "color": "red",
+        "size": "Small",
+        "time": "20:52:37"
+      },
+      {
+        "period": 20261114035,
+        "number": 4,
+        "color": "red",
+        "size": "Small",
+        "time": "20:52:06"
+      },
+      {
+        "period": 20261114034,
+        "number": 1,
+        "color": "green",
+        "size": "Small",
+        "time": "20:51:35"
+      },
+      {
+        "period": 20261114033,
+        "number": 3,
+        "color": "green",
+        "size": "Small",
+        "time": "20:51:04"
+      },
+      {
+        "period": 20261114032,
+        "number": 6,
+        "color": "red",
+        "size": "Big",
+        "time": "20:50:33"
+      },
+      {
+        "period": 20261114031,
+        "number": 9,
+        "color": "green",
+        "size": "Big",
+        "time": "20:50:01"
+      },
+      {
+        "period": 20261114030,
+        "number": 3,
+        "color": "green",
+        "size": "Small",
+        "time": "20:49:30"
+      },
+      {
+        "period": 20261114029,
+        "number": 9,
+        "color": "green",
+        "size": "Big",
+        "time": "20:48:59"
+      },
+      {
+        "period": 20261114028,
+        "number": 2,
+        "color": "red",
+        "size": "Small",
+        "time": "20:48:28"
+      },
+      {
+        "period": 20261114027,
+        "number": 1,
+        "color": "green",
+        "size": "Small",
+        "time": "20:47:57"
+      },
+      {
+        "period": 20261114026,
+        "number": 0,
+        "color": "violet-red",
+        "size": "Small",
+        "time": "20:47:26"
+      },
+      {
+        "period": 20261114025,
+        "number": 5,
+        "color": "violet-green",
+        "size": "Big",
+        "time": "20:46:54"
+      },
+      {
+        "period": 20261114024,
+        "number": 4,
+        "color": "red",
+        "size": "Small",
+        "time": "20:46:23"
+      },
+      {
+        "period": 20261114023,
+        "number": 6,
+        "color": "red",
+        "size": "Big",
+        "time": "20:45:52"
+      },
+      {
+        "period": 20261114022,
+        "number": 8,
+        "color": "red",
+        "size": "Big",
+        "time": "20:45:21"
+      },
+      {
+        "period": 20261114021,
+        "number": 8,
+        "color": "red",
+        "size": "Big",
+        "time": "20:44:50"
+      },
+      {
+        "period": 20261114020,
+        "number": 5,
+        "color": "violet-green",
+        "size": "Big",
+        "time": "20:44:19"
+      },
+      {
+        "period": 20261114019,
+        "number": 0,
+        "color": "violet-red",
+        "size": "Small",
+        "time": "20:43:48"
+      },
+      {
+        "period": 20261114018,
+        "number": 1,
+        "color": "green",
+        "size": "Small",
+        "time": "20:43:17"
+      },
+      {
+        "period": 20261114017,
+        "number": 6,
+        "color": "red",
+        "size": "Big",
+        "time": "20:42:41"
+      },
+      {
+        "period": 20261114016,
+        "number": 3,
+        "color": "green",
+        "size": "Small",
+        "time": "20:42:10"
+      },
+      {
+        "period": 20261114015,
+        "number": 3,
+        "color": "green",
+        "size": "Small",
+        "time": "20:41:39"
+      },
+      {
+        "period": 20261114014,
+        "number": 6,
+        "color": "red",
+        "size": "Big",
+        "time": "20:41:08"
+      },
+      {
+        "period": 20261114013,
+        "number": 0,
+        "color": "violet-red",
+        "size": "Small",
+        "time": "20:40:37"
+      },
+      {
+        "period": 20261114012,
+        "number": 8,
+        "color": "red",
+        "size": "Big",
+        "time": "20:40:06"
       },
       {
         "period": 20261114011,
-        "number": 1,
-        "color": "green",
-        "size": "Small",
-        "time": "17:54:09"
-      },
-      {
-        "period": 20261114010,
-        "number": 2,
-        "color": "red",
-        "size": "Small",
-        "time": "17:53:38"
-      },
-      {
-        "period": 20261114009,
-        "number": 3,
-        "color": "green",
-        "size": "Small",
-        "time": "17:53:07"
-      },
-      {
-        "period": 20261114008,
         "number": 0,
         "color": "violet-red",
         "size": "Small",
-        "time": "17:52:36"
+        "time": "20:39:34"
       },
       {
-        "period": 20261114007,
-        "number": 9,
-        "color": "green",
-        "size": "Big",
-        "time": "17:52:05"
-      },
-      {
-        "period": 20261114006,
+        "period": 20261114010,
         "number": 7,
         "color": "green",
         "size": "Big",
-        "time": "17:51:33"
+        "time": "20:39:03"
       },
       {
-        "period": 20261114005,
-        "number": 1,
-        "color": "green",
-        "size": "Small",
-        "time": "17:51:02"
-      },
-      {
-        "period": 20261114004,
-        "number": 4,
-        "color": "red",
-        "size": "Small",
-        "time": "17:50:31"
-      },
-      {
-        "period": 20261114003,
-        "number": 7,
-        "color": "green",
-        "size": "Big",
-        "time": "17:50:00"
-      },
-      {
-        "period": 20261114002,
-        "number": 4,
-        "color": "red",
-        "size": "Small",
-        "time": "17:49:29"
-      },
-      {
-        "period": 20261114001,
-        "number": 2,
-        "color": "red",
-        "size": "Small",
-        "time": "17:48:58"
-      },
-      {
-        "period": 20261114672,
+        "period": 20261114009,
         "number": 5,
         "color": "violet-green",
         "size": "Big",
-        "time": "14:25:53"
+        "time": "20:38:32"
       },
       {
-        "period": 20261114671,
-        "number": 2,
-        "color": "red",
-        "size": "Small",
-        "time": "14:25:22"
-      },
-      {
-        "period": 20261114670,
-        "number": 5,
-        "color": "violet-green",
-        "size": "Big",
-        "time": "14:24:50"
-      },
-      {
-        "period": 20261114669,
-        "number": 2,
-        "color": "red",
-        "size": "Small",
-        "time": "14:24:19"
-      },
-      {
-        "period": 20261114668,
-        "number": 7,
-        "color": "green",
-        "size": "Big",
-        "time": "14:23:48"
-      },
-      {
-        "period": 20261114667,
-        "number": 2,
-        "color": "red",
-        "size": "Small",
-        "time": "14:23:17"
-      },
-      {
-        "period": 20261114666,
+        "period": 20261114008,
         "number": 3,
         "color": "green",
         "size": "Small",
-        "time": "14:22:46"
+        "time": "20:38:01"
       },
       {
-        "period": 20261114665,
-        "number": 5,
-        "color": "violet-green",
-        "size": "Big",
-        "time": "14:22:15"
-      },
-      {
-        "period": 20261114664,
+        "period": 20261114007,
         "number": 7,
         "color": "green",
         "size": "Big",
-        "time": "14:21:43"
+        "time": "20:37:30"
       },
       {
-        "period": 20261114663,
-        "number": 1,
-        "color": "green",
+        "period": 20261114006,
+        "number": 6,
+        "color": "red",
+        "size": "Big",
+        "time": "20:36:59"
+      },
+      {
+        "period": 20261114005,
+        "number": 4,
+        "color": "red",
         "size": "Small",
-        "time": "14:21:12"
+        "time": "20:36:28"
+      },
+      {
+        "period": 20261114004,
+        "number": 8,
+        "color": "red",
+        "size": "Big",
+        "time": "20:35:57"
+      },
+      {
+        "period": 20261114003,
+        "number": 9,
+        "color": "green",
+        "size": "Big",
+        "time": "20:35:26"
       }
     ],
     "bets": [
@@ -427,569 +428,569 @@
     ]
   },
   "dailyPromotion": {
-    "date": "2026-11-20",
-    "yesterdayDate": "2026-11-19",
-    "yesterdayCommission": 5973.68,
+    "date": "2026-11-27",
+    "yesterdayDate": "2026-11-26",
+    "yesterdayCommission": 5481.16,
     "direct": {
-      "register": 103,
-      "depositNumber": 73,
-      "depositAmount": 41636,
-      "firstDeposit": 53,
-      "commission": 3707.54
+      "register": 84,
+      "depositNumber": 75,
+      "depositAmount": 46031,
+      "firstDeposit": 63,
+      "commission": 3609.24
     },
     "team": {
-      "register": 36,
-      "depositNumber": 30,
-      "depositAmount": 16333,
-      "firstDeposit": 30,
-      "commission": 2266.14
+      "register": 49,
+      "depositNumber": 40,
+      "depositAmount": 21962,
+      "firstDeposit": 40,
+      "commission": 1871.92
     },
     "tier1Combined": {
-      "register": 139,
-      "depositNumber": 103,
-      "depositAmount": 57969,
-      "firstDeposit": 83,
-      "commissionPoint": 5973.68
+      "register": 133,
+      "depositNumber": 115,
+      "depositAmount": 67993,
+      "firstDeposit": 103,
+      "commissionPoint": 5481.16
     },
-    "commissionPoint": 5973.68
+    "commissionPoint": 5481.16
   },
   "promotionHistory": [
     {
-      "date": "2026-11-19",
-      "dayOffset": 3,
-      "baseUid": 630487,
+      "date": "2026-11-26",
+      "dayOffset": 10,
+      "baseUid": 630494,
       "direct": {
-        "register": 103,
-        "depositNumber": 73,
-        "depositAmount": 41636,
-        "firstDeposit": 53,
-        "commission": 3707.54
+        "register": 84,
+        "depositNumber": 75,
+        "depositAmount": 46031,
+        "firstDeposit": 63,
+        "commission": 3609.24
       },
       "team": {
-        "register": 36,
-        "depositNumber": 30,
-        "depositAmount": 16333,
-        "firstDeposit": 30,
-        "commission": 2266.14
+        "register": 49,
+        "depositNumber": 40,
+        "depositAmount": 21962,
+        "firstDeposit": 40,
+        "commission": 1871.92
       },
       "tier1Combined": {
-        "register": 139,
-        "depositNumber": 103,
-        "depositAmount": 57969,
-        "firstDeposit": 83,
-        "commissionPoint": 5973.68
-      },
-      "commissionPoint": 5973.68,
-      "cards": [
-        {
-          "uid": "630487",
-          "level": "1",
-          "deposit": 300,
-          "bet": 409,
-          "commission": 2.45,
-          "time": "2026-11-19"
-        },
-        {
-          "uid": "630455",
-          "level": "1",
-          "deposit": 200,
-          "bet": 330,
-          "commission": 1.98,
-          "time": "2026-11-19"
-        },
-        {
-          "uid": "630391",
-          "level": "1",
-          "deposit": 200,
-          "bet": 280,
-          "commission": 1.68,
-          "time": "2026-11-19"
-        },
-        {
-          "uid": "630318",
-          "level": "1",
-          "deposit": 100,
-          "bet": 115,
-          "commission": 0.69,
-          "time": "2026-11-19"
-        },
-        {
-          "uid": "630263",
-          "level": "1",
-          "deposit": 100,
-          "bet": 100,
-          "commission": 0.6,
-          "time": "2026-11-19"
-        },
-        {
-          "uid": "630193",
-          "level": "2",
-          "deposit": 500,
-          "bet": 620,
-          "commission": 3.72,
-          "time": "2026-11-19"
-        }
-      ]
-    },
-    {
-      "date": "2026-11-18",
-      "dayOffset": 2,
-      "baseUid": 630486,
-      "direct": {
-        "register": 86,
-        "depositNumber": 74,
-        "depositAmount": 42585,
-        "firstDeposit": 64,
-        "commission": 2680.21
-      },
-      "team": {
-        "register": 36,
-        "depositNumber": 31,
-        "depositAmount": 17079,
-        "firstDeposit": 31,
-        "commission": 1548.17
-      },
-      "tier1Combined": {
-        "register": 122,
-        "depositNumber": 105,
-        "depositAmount": 59664,
-        "firstDeposit": 95,
-        "commissionPoint": 4228.38
-      },
-      "commissionPoint": 4228.38,
-      "cards": [
-        {
-          "uid": "630486",
-          "level": "1",
-          "deposit": 300,
-          "bet": 409,
-          "commission": 2.45,
-          "time": "2026-11-18"
-        },
-        {
-          "uid": "630454",
-          "level": "1",
-          "deposit": 200,
-          "bet": 330,
-          "commission": 1.98,
-          "time": "2026-11-18"
-        },
-        {
-          "uid": "630390",
-          "level": "1",
-          "deposit": 200,
-          "bet": 280,
-          "commission": 1.68,
-          "time": "2026-11-18"
-        },
-        {
-          "uid": "630317",
-          "level": "1",
-          "deposit": 100,
-          "bet": 115,
-          "commission": 0.69,
-          "time": "2026-11-18"
-        },
-        {
-          "uid": "630262",
-          "level": "1",
-          "deposit": 100,
-          "bet": 100,
-          "commission": 0.6,
-          "time": "2026-11-18"
-        },
-        {
-          "uid": "630192",
-          "level": "2",
-          "deposit": 500,
-          "bet": 620,
-          "commission": 3.72,
-          "time": "2026-11-18"
-        }
-      ]
-    },
-    {
-      "date": "2026-11-17",
-      "dayOffset": 1,
-      "baseUid": 630485,
-      "direct": {
-        "register": 96,
-        "depositNumber": 90,
-        "depositAmount": 51559,
-        "firstDeposit": 79,
-        "commission": 3120.59
-      },
-      "team": {
-        "register": 39,
-        "depositNumber": 24,
-        "depositAmount": 13224,
-        "firstDeposit": 24,
-        "commission": 1508.16
-      },
-      "tier1Combined": {
-        "register": 135,
-        "depositNumber": 114,
-        "depositAmount": 64783,
+        "register": 133,
+        "depositNumber": 115,
+        "depositAmount": 67993,
         "firstDeposit": 103,
-        "commissionPoint": 4628.75
+        "commissionPoint": 5481.16
       },
-      "commissionPoint": 4628.75,
+      "commissionPoint": 5481.16,
       "cards": [
         {
-          "uid": "630485",
+          "uid": "630494",
           "level": "1",
           "deposit": 300,
           "bet": 409,
           "commission": 2.45,
-          "time": "2026-11-17"
+          "time": "2026-11-26"
         },
         {
-          "uid": "630453",
+          "uid": "630462",
           "level": "1",
           "deposit": 200,
           "bet": 330,
           "commission": 1.98,
-          "time": "2026-11-17"
+          "time": "2026-11-26"
         },
         {
-          "uid": "630389",
+          "uid": "630398",
           "level": "1",
           "deposit": 200,
           "bet": 280,
           "commission": 1.68,
-          "time": "2026-11-17"
+          "time": "2026-11-26"
         },
         {
-          "uid": "630316",
+          "uid": "630325",
           "level": "1",
           "deposit": 100,
           "bet": 115,
           "commission": 0.69,
-          "time": "2026-11-17"
+          "time": "2026-11-26"
         },
         {
-          "uid": "630261",
+          "uid": "630270",
           "level": "1",
           "deposit": 100,
           "bet": 100,
           "commission": 0.6,
-          "time": "2026-11-17"
+          "time": "2026-11-26"
         },
         {
-          "uid": "630191",
+          "uid": "630200",
           "level": "2",
           "deposit": 500,
           "bet": 620,
           "commission": 3.72,
-          "time": "2026-11-17"
+          "time": "2026-11-26"
         }
       ]
     },
     {
-      "date": "2026-11-16",
-      "dayOffset": 0,
-      "baseUid": 630484,
+      "date": "2026-11-25",
+      "dayOffset": 9,
+      "baseUid": 630493,
       "direct": {
-        "register": 103,
-        "depositNumber": 76,
-        "depositAmount": 44072,
-        "firstDeposit": 64,
-        "commission": 3233.09
+        "register": 97,
+        "depositNumber": 79,
+        "depositAmount": 45417,
+        "firstDeposit": 62,
+        "commission": 3561.87
       },
       "team": {
-        "register": 40,
-        "depositNumber": 39,
-        "depositAmount": 21344,
-        "firstDeposit": 39,
-        "commission": 1599.99
+        "register": 47,
+        "depositNumber": 20,
+        "depositAmount": 11539,
+        "firstDeposit": 20,
+        "commission": 1833.69
+      },
+      "tier1Combined": {
+        "register": 144,
+        "depositNumber": 99,
+        "depositAmount": 56956,
+        "firstDeposit": 82,
+        "commissionPoint": 5395.56
+      },
+      "commissionPoint": 5395.56,
+      "cards": [
+        {
+          "uid": "630493",
+          "level": "1",
+          "deposit": 300,
+          "bet": 409,
+          "commission": 2.45,
+          "time": "2026-11-25"
+        },
+        {
+          "uid": "630461",
+          "level": "1",
+          "deposit": 200,
+          "bet": 330,
+          "commission": 1.98,
+          "time": "2026-11-25"
+        },
+        {
+          "uid": "630397",
+          "level": "1",
+          "deposit": 200,
+          "bet": 280,
+          "commission": 1.68,
+          "time": "2026-11-25"
+        },
+        {
+          "uid": "630324",
+          "level": "1",
+          "deposit": 100,
+          "bet": 115,
+          "commission": 0.69,
+          "time": "2026-11-25"
+        },
+        {
+          "uid": "630269",
+          "level": "1",
+          "deposit": 100,
+          "bet": 100,
+          "commission": 0.6,
+          "time": "2026-11-25"
+        },
+        {
+          "uid": "630199",
+          "level": "2",
+          "deposit": 500,
+          "bet": 620,
+          "commission": 3.72,
+          "time": "2026-11-25"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-24",
+      "dayOffset": 8,
+      "baseUid": 630492,
+      "direct": {
+        "register": 105,
+        "depositNumber": 76,
+        "depositAmount": 46741,
+        "firstDeposit": 56,
+        "commission": 2520.38
+      },
+      "team": {
+        "register": 38,
+        "depositNumber": 36,
+        "depositAmount": 19519,
+        "firstDeposit": 36,
+        "commission": 1533.88
       },
       "tier1Combined": {
         "register": 143,
-        "depositNumber": 115,
-        "depositAmount": 65416,
-        "firstDeposit": 103,
-        "commissionPoint": 4833.08
+        "depositNumber": 112,
+        "depositAmount": 66260,
+        "firstDeposit": 92,
+        "commissionPoint": 4054.26
       },
-      "commissionPoint": 4833.08,
+      "commissionPoint": 4054.26,
       "cards": [
         {
-          "uid": "630484",
+          "uid": "630492",
           "level": "1",
           "deposit": 300,
           "bet": 409,
           "commission": 2.45,
-          "time": "2026-11-16"
+          "time": "2026-11-24"
         },
         {
-          "uid": "630452",
+          "uid": "630460",
           "level": "1",
           "deposit": 200,
           "bet": 330,
           "commission": 1.98,
-          "time": "2026-11-16"
+          "time": "2026-11-24"
         },
         {
-          "uid": "630388",
+          "uid": "630396",
           "level": "1",
           "deposit": 200,
           "bet": 280,
           "commission": 1.68,
-          "time": "2026-11-16"
+          "time": "2026-11-24"
         },
         {
-          "uid": "630315",
+          "uid": "630323",
           "level": "1",
           "deposit": 100,
           "bet": 115,
           "commission": 0.69,
-          "time": "2026-11-16"
+          "time": "2026-11-24"
         },
         {
-          "uid": "630260",
+          "uid": "630268",
           "level": "1",
           "deposit": 100,
           "bet": 100,
           "commission": 0.6,
-          "time": "2026-11-16"
+          "time": "2026-11-24"
         },
         {
-          "uid": "630190",
+          "uid": "630198",
           "level": "2",
           "deposit": 500,
           "bet": 620,
           "commission": 3.72,
-          "time": "2026-11-16"
+          "time": "2026-11-24"
         }
       ]
     },
     {
-      "date": "2026-11-15",
-      "dayOffset": -1,
-      "baseUid": 630483,
+      "date": "2026-11-23",
+      "dayOffset": 7,
+      "baseUid": 630491,
       "direct": {
-        "register": 91,
-        "depositNumber": 81,
-        "depositAmount": 48103,
-        "firstDeposit": 61,
-        "commission": 2746.24
-      },
-      "team": {
-        "register": 45,
-        "depositNumber": 22,
-        "depositAmount": 12751,
-        "firstDeposit": 22,
-        "commission": 1445.84
-      },
-      "tier1Combined": {
-        "register": 136,
-        "depositNumber": 103,
-        "depositAmount": 60854,
-        "firstDeposit": 83,
-        "commissionPoint": 4192.08
-      },
-      "commissionPoint": 4192.08,
-      "cards": [
-        {
-          "uid": "630483",
-          "level": "1",
-          "deposit": 300,
-          "bet": 409,
-          "commission": 2.45,
-          "time": "2026-11-15"
-        },
-        {
-          "uid": "630451",
-          "level": "1",
-          "deposit": 200,
-          "bet": 330,
-          "commission": 1.98,
-          "time": "2026-11-15"
-        },
-        {
-          "uid": "630387",
-          "level": "1",
-          "deposit": 200,
-          "bet": 280,
-          "commission": 1.68,
-          "time": "2026-11-15"
-        },
-        {
-          "uid": "630314",
-          "level": "1",
-          "deposit": 100,
-          "bet": 115,
-          "commission": 0.69,
-          "time": "2026-11-15"
-        },
-        {
-          "uid": "630259",
-          "level": "1",
-          "deposit": 100,
-          "bet": 100,
-          "commission": 0.6,
-          "time": "2026-11-15"
-        },
-        {
-          "uid": "630189",
-          "level": "2",
-          "deposit": 500,
-          "bet": 620,
-          "commission": 3.72,
-          "time": "2026-11-15"
-        }
-      ]
-    },
-    {
-      "date": "2026-11-14",
-      "dayOffset": -2,
-      "baseUid": 630482,
-      "direct": {
-        "register": 100,
-        "depositNumber": 81,
-        "depositAmount": 47404,
+        "register": 103,
+        "depositNumber": 87,
+        "depositAmount": 51104,
         "firstDeposit": 69,
-        "commission": 3772.08
+        "commission": 3298.56
       },
       "team": {
-        "register": 35,
-        "depositNumber": 27,
-        "depositAmount": 15150,
-        "firstDeposit": 27,
-        "commission": 1809.12
+        "register": 41,
+        "depositNumber": 26,
+        "depositAmount": 14164,
+        "firstDeposit": 26,
+        "commission": 1886.07
       },
       "tier1Combined": {
-        "register": 135,
-        "depositNumber": 108,
-        "depositAmount": 62554,
-        "firstDeposit": 96,
-        "commissionPoint": 5581.2
+        "register": 144,
+        "depositNumber": 113,
+        "depositAmount": 65268,
+        "firstDeposit": 95,
+        "commissionPoint": 5184.63
       },
-      "commissionPoint": 5581.2,
+      "commissionPoint": 5184.63,
       "cards": [
         {
-          "uid": "630482",
+          "uid": "630491",
           "level": "1",
           "deposit": 300,
           "bet": 409,
           "commission": 2.45,
-          "time": "2026-11-14"
+          "time": "2026-11-23"
         },
         {
-          "uid": "630450",
+          "uid": "630459",
           "level": "1",
           "deposit": 200,
           "bet": 330,
           "commission": 1.98,
-          "time": "2026-11-14"
+          "time": "2026-11-23"
         },
         {
-          "uid": "630386",
+          "uid": "630395",
           "level": "1",
           "deposit": 200,
           "bet": 280,
           "commission": 1.68,
-          "time": "2026-11-14"
+          "time": "2026-11-23"
         },
         {
-          "uid": "630313",
+          "uid": "630322",
           "level": "1",
           "deposit": 100,
           "bet": 115,
           "commission": 0.69,
-          "time": "2026-11-14"
+          "time": "2026-11-23"
         },
         {
-          "uid": "630258",
+          "uid": "630267",
           "level": "1",
           "deposit": 100,
           "bet": 100,
           "commission": 0.6,
-          "time": "2026-11-14"
+          "time": "2026-11-23"
         },
         {
-          "uid": "630188",
+          "uid": "630197",
           "level": "2",
           "deposit": 500,
           "bet": 620,
           "commission": 3.72,
-          "time": "2026-11-14"
+          "time": "2026-11-23"
         }
       ]
     },
     {
-      "date": "2026-11-13",
-      "dayOffset": -3,
-      "baseUid": 630481,
+      "date": "2026-11-22",
+      "dayOffset": 6,
+      "baseUid": 630490,
       "direct": {
-        "register": 93,
-        "depositNumber": 70,
-        "depositAmount": 41429,
-        "firstDeposit": 54,
-        "commission": 3910.13
+        "register": 98,
+        "depositNumber": 82,
+        "depositAmount": 46968,
+        "firstDeposit": 69,
+        "commission": 2942.58
       },
       "team": {
-        "register": 44,
-        "depositNumber": 34,
-        "depositAmount": 18002,
-        "firstDeposit": 34,
-        "commission": 1860.57
+        "register": 40,
+        "depositNumber": 27,
+        "depositAmount": 14698,
+        "firstDeposit": 27,
+        "commission": 1792.35
       },
       "tier1Combined": {
-        "register": 137,
-        "depositNumber": 104,
-        "depositAmount": 59431,
-        "firstDeposit": 88,
-        "commissionPoint": 5770.7
+        "register": 138,
+        "depositNumber": 109,
+        "depositAmount": 61666,
+        "firstDeposit": 96,
+        "commissionPoint": 4734.93
       },
-      "commissionPoint": 5770.7,
+      "commissionPoint": 4734.93,
       "cards": [
         {
-          "uid": "630481",
+          "uid": "630490",
           "level": "1",
           "deposit": 300,
           "bet": 409,
           "commission": 2.45,
-          "time": "2026-11-13"
+          "time": "2026-11-22"
         },
         {
-          "uid": "630449",
+          "uid": "630458",
           "level": "1",
           "deposit": 200,
           "bet": 330,
           "commission": 1.98,
-          "time": "2026-11-13"
+          "time": "2026-11-22"
         },
         {
-          "uid": "630385",
+          "uid": "630394",
           "level": "1",
           "deposit": 200,
           "bet": 280,
           "commission": 1.68,
-          "time": "2026-11-13"
+          "time": "2026-11-22"
         },
         {
-          "uid": "630312",
+          "uid": "630321",
           "level": "1",
           "deposit": 100,
           "bet": 115,
           "commission": 0.69,
-          "time": "2026-11-13"
+          "time": "2026-11-22"
         },
         {
-          "uid": "630257",
+          "uid": "630266",
           "level": "1",
           "deposit": 100,
           "bet": 100,
           "commission": 0.6,
-          "time": "2026-11-13"
+          "time": "2026-11-22"
         },
         {
-          "uid": "630187",
+          "uid": "630196",
           "level": "2",
           "deposit": 500,
           "bet": 620,
           "commission": 3.72,
-          "time": "2026-11-13"
+          "time": "2026-11-22"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-21",
+      "dayOffset": 5,
+      "baseUid": 630489,
+      "direct": {
+        "register": 102,
+        "depositNumber": 88,
+        "depositAmount": 49371,
+        "firstDeposit": 74,
+        "commission": 3759.35
+      },
+      "team": {
+        "register": 47,
+        "depositNumber": 27,
+        "depositAmount": 14749,
+        "firstDeposit": 27,
+        "commission": 1795.92
+      },
+      "tier1Combined": {
+        "register": 149,
+        "depositNumber": 115,
+        "depositAmount": 64120,
+        "firstDeposit": 101,
+        "commissionPoint": 5555.27
+      },
+      "commissionPoint": 5555.27,
+      "cards": [
+        {
+          "uid": "630489",
+          "level": "1",
+          "deposit": 300,
+          "bet": 409,
+          "commission": 2.45,
+          "time": "2026-11-21"
+        },
+        {
+          "uid": "630457",
+          "level": "1",
+          "deposit": 200,
+          "bet": 330,
+          "commission": 1.98,
+          "time": "2026-11-21"
+        },
+        {
+          "uid": "630393",
+          "level": "1",
+          "deposit": 200,
+          "bet": 280,
+          "commission": 1.68,
+          "time": "2026-11-21"
+        },
+        {
+          "uid": "630320",
+          "level": "1",
+          "deposit": 100,
+          "bet": 115,
+          "commission": 0.69,
+          "time": "2026-11-21"
+        },
+        {
+          "uid": "630265",
+          "level": "1",
+          "deposit": 100,
+          "bet": 100,
+          "commission": 0.6,
+          "time": "2026-11-21"
+        },
+        {
+          "uid": "630195",
+          "level": "2",
+          "deposit": 500,
+          "bet": 620,
+          "commission": 3.72,
+          "time": "2026-11-21"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-20",
+      "dayOffset": 4,
+      "baseUid": 630488,
+      "direct": {
+        "register": 92,
+        "depositNumber": 74,
+        "depositAmount": 44382,
+        "firstDeposit": 62,
+        "commission": 2633.43
+      },
+      "team": {
+        "register": 49,
+        "depositNumber": 39,
+        "depositAmount": 20603,
+        "firstDeposit": 39,
+        "commission": 1582.4
+      },
+      "tier1Combined": {
+        "register": 141,
+        "depositNumber": 113,
+        "depositAmount": 64985,
+        "firstDeposit": 101,
+        "commissionPoint": 4215.83
+      },
+      "commissionPoint": 4215.83,
+      "cards": [
+        {
+          "uid": "630488",
+          "level": "1",
+          "deposit": 300,
+          "bet": 409,
+          "commission": 2.45,
+          "time": "2026-11-20"
+        },
+        {
+          "uid": "630456",
+          "level": "1",
+          "deposit": 200,
+          "bet": 330,
+          "commission": 1.98,
+          "time": "2026-11-20"
+        },
+        {
+          "uid": "630392",
+          "level": "1",
+          "deposit": 200,
+          "bet": 280,
+          "commission": 1.68,
+          "time": "2026-11-20"
+        },
+        {
+          "uid": "630319",
+          "level": "1",
+          "deposit": 100,
+          "bet": 115,
+          "commission": 0.69,
+          "time": "2026-11-20"
+        },
+        {
+          "uid": "630264",
+          "level": "1",
+          "deposit": 100,
+          "bet": 100,
+          "commission": 0.6,
+          "time": "2026-11-20"
+        },
+        {
+          "uid": "630194",
+          "level": "2",
+          "deposit": 500,
+          "bet": 620,
+          "commission": 3.72,
+          "time": "2026-11-20"
         }
       ]
     }

@@ -1533,7 +1533,7 @@ body {
 }
 
 .container .amount {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 20px !important;
   line-height: 26px;
   color: #ffffff;
@@ -1550,8 +1550,8 @@ body {
   color: #A39FED !important;
   border-radius: 25.6px !important;
   text-align: center !important;
-  font-size: 13.8668px !important;
-  font-weight: 500 !important;
+  font-size: 13.5px !important;
+  font-weight: 400 !important;
   margin: 0px 0px 5.3332px 0px !important;
   padding: 0px 13.3332px !important;
   white-space: nowrap !important;
@@ -1563,7 +1563,7 @@ body {
   font-size: 11.5px !important;
   margin-bottom: 8px;
   color: #ffffff;
-  font-weight: 500;
+  font-weight: 400;
   opacity: 0.95;
   text-align: center;
 }
@@ -1601,8 +1601,8 @@ body {
   line-height: 38px;
   background-color: #011341;
   color: #ffffff;
-  font-size: 15px !important;
-  font-weight: 600;
+  font-size: 14.5px !important;
+  font-weight: 400;
   text-align: center;
   margin-bottom: 0;
   box-sizing: border-box;
@@ -1611,13 +1611,13 @@ body {
   border-left: 1px solid #2E2A6A;
 }
 
-/* 4. Subordinate Rows (+3px font size) */
+/* 4. Subordinate Rows (Normal labels, +2.5px numbers) */
 .container .info_content .info .line1,
 .container .info_content .info .line2,
 .container .info_content .info .line3 {
   color: #E3EFFF;
-  font-size: 14px !important;
-  font-weight: 500;
+  font-size: 12.5px !important;
+  font-weight: 400;
   text-align: center;
   padding: 2px 0px 0px;
   height: 42px;
@@ -1645,8 +1645,8 @@ body {
 .container .info_content .info .line1 > div,
 .container .info_content .info .line2 > div,
 .container .info_content .info .line3 > div {
-  font-size: 16.5px !important;
-  font-weight: 700;
+  font-size: 15px !important;
+  font-weight: 500;
   margin-bottom: 2px;
   line-height: 1;
 }
@@ -1654,6 +1654,20 @@ body {
 .container .info_content .info .line2.r,
 .container .info_content .info .line3.r {
   border-right: 1px solid #3F3A95;
+}
+
+/* 0.25s Promotion pre-load state matching real Shree.Win before data populates */
+.container .info_content.promo-preloading .info .line2 > div,
+.container .info_content.promo-preloading .info .line3 > div,
+.container .info_content.promo-preloading .info .line-last > div {
+  display: none !important;
+}
+.container .info_content.promo-preloading .info .line2,
+.container .info_content.promo-preloading .info .line3,
+.container .info_content.promo-preloading .info .line-last {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 8px 6px 4px !important;
 }
 .container .info_content .info .line1 > div {
   color: #E3EFFF;
@@ -1697,10 +1711,10 @@ body {
   height: 37.33px !important;
   line-height: 35.33px !important;
   color: #ffffff !important;
-  font-size: 13px !important;
+  font-size: 16px !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.53px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.6px !important;
   padding: 1px 6px !important;
   border: none !important;
   border-radius: 999px !important;
@@ -2121,7 +2135,7 @@ body {
 .subordinate-records {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
   box-sizing: border-box;
   margin-top: 0px;
@@ -2131,11 +2145,11 @@ body {
   width: 100%;
   background-color: #211E52;
   border-radius: 10px;
-  padding: 18px 18px 20px;
+  padding: 14px 16px 15px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 9px;
 }
 
 .sub-card-header {
@@ -2144,13 +2158,13 @@ body {
   justify-content: flex-start;
   gap: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 12px;
+  padding-bottom: 9px;
 }
 
 .sub-card-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 7px;
 }
 
 .sub-card-uid {
@@ -2178,6 +2192,7 @@ body {
   align-items: center;
   justify-content: space-between;
   font-size: 16px !important;
+  line-height: 1.25;
 }
 
 .sub-row-label {
@@ -2953,4 +2968,146 @@ body {
   .tabbar__container {
     max-width: 100% !important;
   }
+}
+
+/* ============================================================
+   LIVE TRANSACTION / WITHDRAWAL / DEPOSIT HISTORY MODAL
+   ============================================================ */
+.sw-history-sheet {
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  background: #1C1A3F;
+  border-radius: 16px 16px 0 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  border-top: 1px solid #3F3A95;
+}
+
+#historyModal {
+  z-index: 1100;
+}
+
+.sw-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sw-history-header h3 {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.sw-history-close {
+  background: none;
+  border: none;
+  color: #92A8E3;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.sw-history-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.sw-history-tab {
+  padding: 8px 6px;
+  border-radius: 8px;
+  border: 1px solid #3F3A95;
+  background: #2E2A6A;
+  color: #92A8E3;
+  font-size: 13px !important;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sw-history-tab.active {
+  background: linear-gradient(90deg, #A088FF 0%, #5C4FFD 100%);
+  border-color: transparent;
+  color: #FFFFFF;
+}
+
+.sw-history-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 160px;
+  max-height: 55vh;
+}
+
+.sw-history-item {
+  background: #2E2A6A;
+  border-radius: 8px;
+  padding: 11px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sw-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sw-history-type {
+  font-size: 14px !important;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.sw-history-amt {
+  font-size: 15px !important;
+  font-weight: 700;
+  color: #FFA840;
+}
+
+.sw-history-amt.is-recharge {
+  color: #40ad72;
+}
+
+.sw-history-meta {
+  font-size: 12px !important;
+  color: #92A8E3;
+}
+
+.sw-history-badge {
+  font-size: 11px !important;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.sw-history-badge.success {
+  background: rgba(64, 173, 114, 0.2);
+  color: #40ad72;
+}
+
+.sw-history-badge.pending {
+  background: rgba(255, 168, 64, 0.2);
+  color: #FFA840;
+}
+
+.sw-history-badge.failed {
+  background: rgba(253, 86, 92, 0.2);
+  color: #fd565c;
+}
+
+.sw-history-empty {
+  text-align: center;
+  color: #92A8E3;
+  padding: 36px 12px;
+  font-size: 13.5px !important;
 }

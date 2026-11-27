@@ -233,6 +233,10 @@ if (fs.existsSync(DATA_FILE)) {
 
 activeUserId = (state.users && state.users[0]) ? state.users[0].id : null;
 
+function getActiveUser() {
+  return state.users.find(u => u.id === activeUserId) || state.users[0];
+}
+
 function saveData() {
   try {
     fs.writeFileSync(DATA_FILE, JSON.stringify(state, null, 2), 'utf8');
@@ -575,7 +579,7 @@ const server = http.createServer(async (req, res) => {
     const amount = parseFloat(body.amount || 10);
     const selectType = body.selectType || 'color'; // color, number, size
     const selection = body.selection || 'green'; // green, red, violet, 0-9, Big, Small
-    const user = state.users[0];
+    const user = getActiveUser();
 
     if (user.balance < amount) {
       return sendJson(res, { code: 1, msg: 'Insufficient balance' }, 400);
@@ -610,7 +614,8 @@ const server = http.createServer(async (req, res) => {
 
   // 6. User Bets
   if (pathname === '/api/wingo/my-bets' || pathname === '/api/webapi/GetMyEmerdList') {
-    const userBets = state.wingo.bets.filter(b => b.userId === state.users[0].id).slice(0, 30);
+    const user = getActiveUser();
+    const userBets = state.wingo.bets.filter(b => b.userId === user.id).slice(0, 30);
     return sendJson(res, {
       code: 0,
       msg: 'Success',
@@ -625,7 +630,7 @@ const server = http.createServer(async (req, res) => {
     const body = await parseJson(req);
     const amount = parseFloat(body.amount || 500);
     const channel = body.channel || 'Fast UPI';
-    const user = state.users[0];
+    const user = getActiveUser();
 
     user.balance += amount;
 
@@ -656,7 +661,7 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/wallet/withdraw' || pathname === '/api/webapi/NewSetWithdrawal') {
     const body = await parseJson(req);
     const amount = parseFloat(body.amount || 200);
-    const user = state.users[0];
+    const user = getActiveUser();
 
     if (user.balance < amount) {
       return sendJson(res, { code: 1, msg: 'Insufficient balance' }, 400);
@@ -690,11 +695,13 @@ const server = http.createServer(async (req, res) => {
 
   // 9. Transaction Records
   if (pathname === '/api/wallet/transactions' || pathname === '/api/webapi/GetTransactions') {
+    const user = getActiveUser();
+    const list = state.transactions.filter(t => !t.userId || t.userId === user.id || t.userId === 'ALL');
     return sendJson(res, {
       code: 0,
       msg: 'Success',
       data: {
-        list: state.transactions
+        list
       }
     });
   }
@@ -715,18 +722,109 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/admin/set-balance') {
     const body = await parseJson(req);
     const newBal = parseFloat(body.balance);
-    if (!isNaN(newBal)) {
-      state.users[0].balance = newBal;
+    const targetUser = (body.userId ? state.users.find(u => u.id === body.userId) : null) || getActiveUser();
+    if (!isNaN(newBal) && targetUser) {
+      targetUser.balance = newBal;
       saveData();
       return sendJson(res, { code: 0, msg: `User balance updated to ₹${newBal.toFixed(2)}`, balance: newBal });
     }
     return sendJson(res, { code: 1, msg: 'Invalid balance amount' }, 400);
   }
 
+  if (pathname === '/api/admin/update-user') {
+    const body = await parseJson(req);
+    const targetUser = (body.userId ? state.users.find(u => u.id === body.userId) : null)
+      || (body.originalPhone ? state.users.find(u => u.phone === body.originalPhone) : null)
+      || getActiveUser();
+    if (!targetUser) {
+      return sendJson(res, { code: 1, msg: 'User not found' }, 404);
+    }
+
+    if (body.uid !== undefined && String(body.uid).trim() !== '') {
+      targetUser.uid = String(body.uid).trim();
+    }
+    if (body.inviteCode !== undefined && String(body.inviteCode).trim() !== '') {
+      targetUser.inviteCode = String(body.inviteCode).trim();
+    }
+    if (body.balance !== undefined && !isNaN(parseFloat(body.balance))) {
+      targetUser.balance = parseFloat(body.balance);
+    }
+    if (body.phone !== undefined && String(body.phone).trim() !== '') {
+      targetUser.phone = String(body.phone).trim();
+    }
+    if (body.nickName !== undefined && String(body.nickName).trim() !== '') {
+      targetUser.nickname = String(body.nickName).trim();
+      targetUser.nickName = targetUser.nickname;
+    }
+    if (body.vipLevel !== undefined && !isNaN(parseInt(body.vipLevel, 10))) {
+      targetUser.vipLevel = parseInt(body.vipLevel, 10);
+    }
+    if (body.password !== undefined && String(body.password).trim() !== '') {
+      targetUser.password = String(body.password).trim();
+    }
+
+    saveData();
+    return sendJson(res, { code: 0, msg: 'User profile updated successfully', data: targetUser });
+  }
+
+  if (pathname === '/api/admin/transaction/add') {
+    const body = await parseJson(req);
+    const type = (body.type || 'WITHDRAW').toUpperCase();
+    const amount = parseFloat(body.amount);
+    if (isNaN(amount) || amount < 0) {
+      return sendJson(res, { code: 1, msg: 'Invalid transaction amount' }, 400);
+    }
+    const targetUser = (body.userId ? state.users.find(u => u.id === body.userId) : null) || getActiveUser();
+    const prefix = type === 'WITHDRAW' ? 'WTH' : 'TXN';
+    const txn = {
+      id: (body.id && String(body.id).trim()) || (prefix + Date.now()),
+      userId: body.userId || (targetUser ? targetUser.id : 'USR10000'),
+      type,
+      amount,
+      channel: (body.channel && String(body.channel).trim()) || (type === 'WITHDRAW' ? 'UPI Fast' : 'Fast UPI'),
+      account: (body.account && String(body.account).trim()) || '',
+      status: (body.status && String(body.status).trim().toUpperCase()) || 'SUCCESS',
+      time: (body.time && String(body.time).trim()) || new Date().toISOString()
+    };
+    state.transactions.unshift(txn);
+    saveData();
+    return sendJson(res, { code: 0, msg: `${type} record added (${txn.id})`, data: txn });
+  }
+
+  if (pathname === '/api/admin/transaction/update') {
+    const body = await parseJson(req);
+    const txn = state.transactions.find(t => t.id === body.id);
+    if (!txn) {
+      return sendJson(res, { code: 1, msg: 'Transaction not found' }, 404);
+    }
+    if (body.newId !== undefined && String(body.newId).trim() !== '') txn.id = String(body.newId).trim();
+    if (body.userId !== undefined && String(body.userId).trim() !== '') txn.userId = String(body.userId).trim();
+    if (body.type !== undefined && String(body.type).trim() !== '') txn.type = String(body.type).trim().toUpperCase();
+    if (body.amount !== undefined && !isNaN(parseFloat(body.amount))) txn.amount = parseFloat(body.amount);
+    if (body.channel !== undefined) txn.channel = String(body.channel).trim();
+    if (body.account !== undefined) txn.account = String(body.account).trim();
+    if (body.status !== undefined && String(body.status).trim() !== '') txn.status = String(body.status).trim().toUpperCase();
+    if (body.time !== undefined && String(body.time).trim() !== '') txn.time = String(body.time).trim();
+    saveData();
+    return sendJson(res, { code: 0, msg: `Record ${txn.id} updated`, data: txn });
+  }
+
+  if (pathname === '/api/admin/transaction/delete') {
+    const body = await parseJson(req);
+    const idx = state.transactions.findIndex(t => t.id === body.id);
+    if (idx === -1) {
+      return sendJson(res, { code: 1, msg: 'Transaction not found' }, 404);
+    }
+    const removed = state.transactions.splice(idx, 1)[0];
+    saveData();
+    return sendJson(res, { code: 0, msg: `Record ${removed.id} deleted` });
+  }
+
   if (pathname === '/api/admin/data') {
     return sendJson(res, {
       code: 0,
       data: {
+        activeUserId: getActiveUser() ? getActiveUser().id : null,
         users: state.users,
         transactions: state.transactions,
         wingo: state.wingo

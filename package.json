@@ -4,7 +4,12 @@
   "description": "Shreewin Clone Web Application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "build": "node scripts/build-cf.js",
+    "start": "node server.js",
+    "deploy:cf": "npm run build && wrangler deploy"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "keywords": [
     "shreewin",

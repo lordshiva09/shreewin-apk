@@ -1,0 +1,28 @@
+{
+  "name": "shreewin-apk",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2026-05-15",
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/admin", "/admin.html"]
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SHREEWIN_DO",
+        "class_name": "ShreewinStateDO"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["ShreewinStateDO"]
+    }
+  ]
+}

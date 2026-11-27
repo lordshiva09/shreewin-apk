@@ -4929,7 +4929,7 @@
             </div>
             <div class="userInfo__container-content-uid">
               <span>UID</span><span>|</span><span class="js-user-uid">6130903</span>
-              <svg class="svg-icon icon-copy" onclick="navigator.clipboard.writeText('6130903'); alert('UID Copied!');"><use xlink:href="#icon-copy"></use></svg>
+              <svg class="svg-icon icon-copy" onclick="copyCurrentUID()"><use xlink:href="#icon-copy"></use></svg>
             </div>
             <div class="userInfo__container-content-logintime">
               <span>Last login:&nbsp;</span><span>2026-11-15 10:49:32</span>
@@ -4980,21 +4980,21 @@
               <span>My game history</span>
             </div>
           </div>
-          <div onclick="alert('Transaction history: All records synced')">
+          <div onclick="openHistoryModal('ALL')">
             <svg class="svg-icon icon-tradeHistory"><use xlink:href="#icon-tradeHistory"></use></svg>
             <div class="financialServices__container-box-para">
               <h3>Transaction</h3>
               <span>My transaction<br>history</span>
             </div>
           </div>
-          <div onclick="alert('Deposit history: ₹50.00 initial credit confirmed')">
+          <div onclick="openHistoryModal('RECHARGE')">
             <svg class="svg-icon icon-rechargeHistory"><use xlink:href="#icon-rechargeHistory"></use></svg>
             <div class="financialServices__container-box-para">
               <h3>Deposit</h3>
               <span>My deposit history</span>
             </div>
           </div>
-          <div onclick="alert('Withdraw history: No pending withdrawals')">
+          <div onclick="openHistoryModal('WITHDRAW')">
             <svg class="svg-icon icon-myWithdrawHistory"><use xlink:href="#icon-myWithdrawHistory"></use></svg>
             <div class="financialServices__container-box-para">
               <h3>Withdraw</h3>
@@ -5106,7 +5106,7 @@
         </svg>
       </div>
       <div class="ar-nav-title">Withdraw</div>
-      <div class="ar-nav-right" onclick="alert('Withdrawal history: No records found.')">Withdrawal history</div>
+      <div class="ar-nav-right" onclick="openHistoryModal('WITHDRAW')">Withdrawal history</div>
     </header>
 
     <div class="ar-wallet-page-content">
@@ -5255,7 +5255,7 @@
         </svg>
       </div>
       <div class="ar-nav-title">Deposit</div>
-      <div class="ar-nav-right" onclick="alert('Deposit history: ₹50.00 initial credit confirmed')">Deposit history</div>
+      <div class="ar-nav-right" onclick="openHistoryModal('RECHARGE')">Deposit history</div>
     </header>
 
     <div class="ar-wallet-page-content">
@@ -6121,7 +6121,7 @@
       <div class="turntableBg" style="background-image: url(/ossimg/shreewin/tab/wheel.png);"></div>
       <span class="turntable-text">Get ₹500</span>
     </div>
-    <div class="tabbar__container-item" data-tab="promotion" data-nor="/assets/png/wallet_nor-D-p_ziCw.png" data-sel="/assets/png/wallet_sel-tj6BSHob.png" onclick="window.location.hash='#/promotion'">
+    <div class="tabbar__container-item" data-tab="promotion" data-nor="/assets/png/wallet_nor-D-p_ziCw.png" data-sel="/assets/png/wallet_sel-tj6BSHob.png" onclick="if(window.location.hash==='#/promotion'){if(window.triggerPromotionPreload)window.triggerPromotionPreload();}else{window.location.hash='#/promotion';}">
       <img class="tab-icon" src="/assets/png/wallet_nor-D-p_ziCw.png" alt="Promotion">
       <span>Promotion</span>
     </div>
@@ -6149,6 +6149,24 @@
         <button class="sw-step-btn" onclick="adjustMultiplier(1)">+</button>
       </div>
       <button class="sw-btn-confirm" id="btnConfirmBet" onclick="confirmBet()">Confirm Bet</button>
+    </div>
+  </div>
+
+  <!-- Live Transaction / Withdrawal / Deposit History Modal -->
+  <div id="historyModal" class="sw-modal-mask" onclick="if(event.target===this) closeHistoryModal()">
+    <div class="sw-history-sheet">
+      <div class="sw-history-header">
+        <h3 id="historyModalTitle">Transaction History</h3>
+        <button type="button" class="sw-history-close" onclick="closeHistoryModal()">✕</button>
+      </div>
+      <div class="sw-history-tabs">
+        <button type="button" class="sw-history-tab active" data-type="ALL" onclick="filterHistoryModal('ALL')">All</button>
+        <button type="button" class="sw-history-tab" data-type="WITHDRAW" onclick="filterHistoryModal('WITHDRAW')">Withdrawal</button>
+        <button type="button" class="sw-history-tab" data-type="RECHARGE" onclick="filterHistoryModal('RECHARGE')">Deposit</button>
+      </div>
+      <div id="historyModalList" class="sw-history-list">
+        <div class="sw-history-empty">Loading records...</div>
+      </div>
     </div>
   </div>
 </div>

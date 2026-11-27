@@ -1,376 +1,1693 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shreewin Control Center</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shree.Win Admin Control Center</title>
   <style>
     :root {
       --bg-dark: #121028;
       --card-bg: #1c1a3f;
       --card-inner: #252254;
       --primary: #8a76ff;
-      --primary-gradient: linear-gradient(135deg, #a088ff 0%, #5c4ffd 100%);
+      --primary-hover: #735cf8;
       --accent-green: #40ad72;
       --accent-red: #fd565c;
-      --accent-violet: #b659fe;
-      --text-main: #f0f0ff;
-      --text-sub: #9e9bc7;
+      --accent-violet: #a75eff;
+      --accent-amber: #f59e0b;
       --border-color: #363273;
+      --text-main: #f3f4ff;
+      --text-muted: #9b97c7;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px; }
+    * {
+      box-sizing: border-box;
+    }
 
-    .header {
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top right, #1f1b47 0%, var(--bg-dark) 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Top Header */
+    .topbar {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 24px;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
     }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand-logo {
-      width: 44px; height: 44px; background: var(--primary-gradient);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 22px; color: #fff; box-shadow: 0 4px 14px rgba(92,79,253,0.4);
-    }
-    .brand-title h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-    .brand-title p { font-size: 13px; color: var(--text-sub); }
 
-    .btn-link {
-      background: rgba(255,255,255,0.08); color: #fff; padding: 10px 18px;
-      border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;
-      transition: all 0.2s; border: 1px solid var(--border-color);
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .btn-link:hover { background: var(--primary-gradient); }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-bottom: 24px; }
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green);
+    }
+
+    .brand-dot.offline {
+      background: var(--accent-red);
+      box-shadow: 0 0 10px var(--accent-red);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .brand .subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .topbar-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill {
+      background: var(--card-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill strong {
+      color: #c5baff;
+    }
+
+    /* Grid Layouts */
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 1050px) {
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card */
     .card {
-      background: var(--card-bg); border-radius: 16px; padding: 22px;
-      border: 1px solid var(--border-color); box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
     }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(54, 50, 115, 0.75);
+    }
+
     .card-title {
-      font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 16px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .badge-live {
-      background: rgba(64,173,114,0.2); color: var(--accent-green);
-      font-size: 11px; padding: 3px 8px; border-radius: 12px; border: 1px solid var(--accent-green);
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .period-display {
-      background: var(--card-inner); border-radius: 12px; padding: 16px;
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;
+    .badge-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(138, 118, 255, 0.18);
+      color: #c5baff;
+      border: 1px solid rgba(138, 118, 255, 0.35);
     }
-    .period-meta span { display: block; font-size: 12px; color: var(--text-sub); }
-    .period-meta strong { font-size: 18px; color: #fff; font-weight: 700; }
-    .timer-box { text-align: right; }
-    .timer-sec {
-      font-size: 28px; font-weight: 800; color: #fff;
-      font-family: 'Courier New', Courier, monospace;
-    }
-    .timer-sec.urgent { color: var(--accent-red); animation: pulse 0.8s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-    .control-label { font-size: 13px; color: var(--text-sub); margin-bottom: 10px; display: block; }
-    .number-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
+    /* Form Controls */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field.span-2 {
+      grid-column: span 2;
+    }
+
+    .field.span-3 {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    input,
+    select {
+      width: 100%;
+      background: var(--card-inner);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 9px 11px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(138, 118, 255, 0.25);
+    }
+
+    .dirty-banner {
+      display: none;
+      font-size: 12px;
+      color: #fcd34d;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 8px;
+      padding: 6px 10px;
+      margin-bottom: 12px;
+    }
+
+    .dirty-banner.visible {
+      display: block;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--primary);
+      transition: transform 0.08s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button.btn-secondary {
+      background: var(--card-inner);
+      border-color: var(--border-color);
+      color: var(--text-main);
+    }
+
+    button.btn-secondary:hover {
+      background: #2f2b67;
+    }
+
+    button.btn-green {
+      background: var(--accent-green);
+    }
+
+    button.btn-green:hover {
+      background: #359560;
+    }
+
+    button.btn-red {
+      background: var(--accent-red);
+    }
+
+    button.btn-red:hover {
+      background: #e1444a;
+    }
+
+    button.btn-sm {
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+
+    .quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip-btn {
+      background: rgba(138, 118, 255, 0.15);
+      border: 1px solid rgba(138, 118, 255, 0.35);
+      color: #d6ceff;
+      padding: 3px 8px;
+      font-size: 11px;
+      border-radius: 6px;
+    }
+
+    .chip-btn:hover {
+      background: rgba(138, 118, 255, 0.28);
+    }
+
+    /* WinGo Controls */
+    .wingo-status {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--card-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .wingo-stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .wingo-stat-value {
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .wingo-num-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
     .num-btn {
-      padding: 12px 0; border: none; border-radius: 10px; font-size: 16px; font-weight: 700;
-      color: #fff; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .num-btn:hover { transform: translateY(-2px); }
-    .num-btn.green { background: #40ad72; }
-    .num-btn.red { background: #fd565c; }
-    .num-btn.violet-red { background: linear-gradient(135deg, #fd565c 50%, #b659fe 50%); }
-    .num-btn.violet-green { background: linear-gradient(135deg, #40ad72 50%, #b659fe 50%); }
-
-    .action-row { display: flex; gap: 10px; }
-    .btn-auto {
-      flex: 1; padding: 12px; background: rgba(255,255,255,0.08); border: 1px solid var(--border-color);
-      color: #fff; border-radius: 8px; font-weight: 600; cursor: pointer;
-    }
-    .btn-auto:hover { background: rgba(255,255,255,0.15); }
-
-    .status-alert {
-      margin-top: 14px; padding: 10px 14px; border-radius: 8px; font-size: 13px;
-      display: none; background: rgba(138,118,255,0.2); border: 1px solid var(--primary);
+      padding: 10px 0;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 8px;
+      border: 2px solid transparent;
     }
 
-    /* Input & Forms */
-    .form-group { margin-bottom: 14px; }
-    .form-input {
-      width: 100%; padding: 12px 14px; background: var(--card-inner); border: 1px solid var(--border-color);
-      border-radius: 8px; color: #fff; font-size: 15px; outline: none; margin-top: 6px;
+    .num-btn.is-green {
+      background: var(--accent-green);
     }
-    .form-input:focus { border-color: var(--primary); }
-    .btn-primary {
-      width: 100%; padding: 12px; background: var(--primary-gradient); border: none;
-      color: #fff; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer;
-      box-shadow: 0 4px 12px rgba(92,79,253,0.3);
+
+    .num-btn.is-red {
+      background: var(--accent-red);
     }
-    .btn-primary:hover { opacity: 0.95; }
+
+    .num-btn.is-rv {
+      background: linear-gradient(135deg, var(--accent-red) 50%, var(--accent-violet) 50%);
+    }
+
+    .num-btn.is-gv {
+      background: linear-gradient(135deg, var(--accent-green) 50%, var(--accent-violet) 50%);
+    }
+
+    .num-btn.active {
+      border-color: #fff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+    }
+
+    /* Sub-panels inside cards */
+    .inline-add-box {
+      background: var(--card-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .inline-add-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #d6ceff;
+      margin: 0 0 10px 0;
+    }
+
+    .inline-add-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 10px;
+      align-items: end;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pill-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-tab {
+      background: var(--card-inner);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .pill-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
 
     /* Tables */
-    .table-container { overflow-x: auto; max-height: 280px; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { text-align: left; padding: 10px 8px; color: var(--text-sub); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; background: var(--card-bg); }
-    td { padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .ball {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 24px; height: 24px; border-radius: 50%; font-weight: 700; font-size: 12px; color: #fff;
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: rgba(18, 16, 40, 0.45);
     }
-    .ball.green { background: var(--accent-green); }
-    .ball.red { background: var(--accent-red); }
-    .ball.violet-red { background: linear-gradient(135deg, var(--accent-red) 50%, var(--accent-violet) 50%); }
-    .ball.violet-green { background: linear-gradient(135deg, var(--accent-green) 50%, var(--accent-violet) 50%); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(54, 50, 115, 0.55);
+      white-space: nowrap;
+    }
+
+    th {
+      background: var(--card-inner);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(138, 118, 255, 0.06);
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .badge-success {
+      background: rgba(64, 173, 114, 0.18);
+      color: #6ee7a8;
+      border: 1px solid rgba(64, 173, 114, 0.4);
+    }
+
+    .badge-pending {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-failed {
+      background: rgba(253, 86, 92, 0.18);
+      color: #fca5a5;
+      border: 1px solid rgba(253, 86, 92, 0.4);
+    }
+
+    .badge-type-RECHARGE {
+      background: rgba(64, 173, 114, 0.18);
+      color: #6ee7a8;
+    }
+
+    .badge-type-WITHDRAW {
+      background: rgba(253, 86, 92, 0.18);
+      color: #fca5a5;
+    }
+
+    .badge-type-BONUS {
+      background: rgba(167, 94, 255, 0.22);
+      color: #d8b4fe;
+    }
+
+    .badge-type-BET {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fcd34d;
+    }
+
+    .badge-type-WIN {
+      background: rgba(56, 189, 248, 0.18);
+      color: #7dd3fc;
+    }
+
+    .actions-cell {
+      display: flex;
+      gap: 6px;
+    }
+
+    .empty-row {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 20px;
+    }
+
+    /* Two-column lower section for WinGo results & Bets */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Modal */
+    .modal-mask {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 7, 22, 0.76);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-mask.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-head h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      padding: 11px 16px;
+      border-radius: 10px;
+      background: #232050;
+      border: 1px solid var(--primary);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 1200;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast.error {
+      border-color: var(--accent-red);
+      background: #441c2b;
+    }
   </style>
 </head>
 <body>
-
-  <div class="header">
-    <div class="brand">
-      <div class="brand-logo">S</div>
-      <div class="brand-title">
-        <h1>Shreewin Control Panel</h1>
-        <p>Real-Time Outcome Controller & Balance Simulator</p>
-      </div>
-    </div>
-    <a href="/#/register?invitationCode=36467291608" target="_blank" class="btn-link">Open Shreewin App ↗</a>
-  </div>
-
-  <div class="grid">
-    <!-- WinGo Controller -->
-    <div class="card">
-      <div class="card-title">
-        <span>Win Go 30s Manipulation</span>
-        <span class="badge-live">LIVE ENGINE</span>
-      </div>
-
-      <div class="period-display">
-        <div class="period-meta">
-          <span>Active Period</span>
-          <strong id="activePeriod">20261114001</strong>
-        </div>
-        <div class="timer-box">
-          <span style="font-size:11px; color:var(--text-sub); display:block;">Next Draw In</span>
-          <div class="timer-sec" id="timerCount">30s</div>
+  <div class="container">
+    <!-- Top Header -->
+    <div class="topbar">
+      <div class="brand">
+        <div id="connDot" class="brand-dot"></div>
+        <div>
+          <h1>Shree.Win Admin Control Center</h1>
+          <div class="subtitle">Edit UID, Invite Code, Balance, Withdrawal History, Transaction History &amp; WinGo 30s</div>
         </div>
       </div>
-
-      <span class="control-label">Force Next Winning Number:</span>
-      <div class="number-grid">
-        <button class="num-btn violet-red" onclick="forceOutcome(0)">0</button>
-        <button class="num-btn green" onclick="forceOutcome(1)">1</button>
-        <button class="num-btn red" onclick="forceOutcome(2)">2</button>
-        <button class="num-btn green" onclick="forceOutcome(3)">3</button>
-        <button class="num-btn red" onclick="forceOutcome(4)">4</button>
-        <button class="num-btn violet-green" onclick="forceOutcome(5)">5</button>
-        <button class="num-btn red" onclick="forceOutcome(6)">6</button>
-        <button class="num-btn green" onclick="forceOutcome(7)">7</button>
-        <button class="num-btn red" onclick="forceOutcome(8)">8</button>
-        <button class="num-btn green" onclick="forceOutcome(9)">9</button>
+      <div class="topbar-meta">
+        <div class="pill">Active User: <strong id="topActiveUser">--</strong></div>
+        <div class="pill">WinGo Period: <strong id="topPeriod">--</strong></div>
+        <div class="pill">Countdown: <strong id="topCountdown">--s</strong></div>
+        <a href="/" target="_blank" style="text-decoration:none;">
+          <button type="button" class="btn-secondary btn-sm">Open App</button>
+        </a>
+        <button type="button" class="btn-sm" onclick="loadData(true)">Refresh Now</button>
       </div>
-
-      <div class="action-row">
-        <button class="btn-auto" onclick="forceOutcome(null)">Reset to AUTO (Random)</button>
-      </div>
-
-      <div class="status-alert" id="outcomeAlert"></div>
     </div>
 
-    <!-- User Balance Controller -->
-    <div class="card">
-      <div class="card-title">
-        <span>User Wallet Adjustment</span>
-      </div>
+    <!-- Top Row: User Profile & Wallet Editor + WinGo Manipulation -->
+    <div class="top-grid">
+      <!-- User Profile & Wallet Editor -->
+      <section class="card" id="userEditorCard">
+        <div class="card-header">
+          <h2 class="card-title">
+            User Profile &amp; Wallet Editor
+            <span class="badge-tag" id="selectedUserBadge">UID: --</span>
+          </h2>
+          <div style="min-width: 240px;">
+            <select id="targetUserSelect" onchange="onSelectUserChange()"></select>
+          </div>
+        </div>
 
-      <div class="form-group">
-        <label class="control-label">User Phone Number</label>
-        <input type="text" class="form-input" id="userPhone" value="9594558820" readonly>
-      </div>
+        <div id="userDirtyBanner" class="dirty-banner">
+          Unsaved edits in progress — auto-refresh will not overwrite these fields until you click <strong>Save User Changes</strong> or <strong>Reload Fields</strong>.
+        </div>
 
-      <div class="form-group">
-        <label class="control-label">Current Balance (₹)</label>
-        <input type="number" class="form-input" id="userBalance" value="10000.00" step="100">
-      </div>
+        <form id="userEditorForm" onsubmit="event.preventDefault(); saveUserChanges();">
+          <div class="form-grid">
+            <div class="field">
+              <label for="editUid">UID</label>
+              <input id="editUid" type="text" placeholder="e.g. 6130903" />
+            </div>
+            <div class="field">
+              <label for="editInviteCode">Invite Code</label>
+              <input id="editInviteCode" type="text" placeholder="e.g. 36467291608" />
+            </div>
+            <div class="field">
+              <label for="editBalance">Balance (&#8377;)</label>
+              <input id="editBalance" type="number" step="0.01" min="0" placeholder="1050.00" />
+            </div>
+            <div class="field">
+              <label for="editPhone">Phone Number</label>
+              <input id="editPhone" type="text" placeholder="9594558820" />
+            </div>
+            <div class="field">
+              <label for="editNickName">Nickname</label>
+              <input id="editNickName" type="text" placeholder="MEMBERD46ABGUH" />
+            </div>
+            <div class="field">
+              <label for="editVipLevel">VIP Level</label>
+              <input id="editVipLevel" type="number" min="0" max="15" step="1" placeholder="0" />
+            </div>
+            <div class="field span-3">
+              <label for="editPassword">New Password (leave blank to keep current)</label>
+              <input id="editPassword" type="text" placeholder="Optional — only fill if changing password" />
+            </div>
+          </div>
 
-      <button class="btn-primary" onclick="updateBalance()">Update Balance</button>
-      <div class="status-alert" id="balanceAlert"></div>
+          <div class="quick-chips">
+            <span style="font-size:11px; color:var(--text-muted); align-self:center; margin-right:4px;">Quick Balance:</span>
+            <button type="button" class="chip-btn" onclick="adjustBalanceInput(500, true)">+&#8377;500</button>
+            <button type="button" class="chip-btn" onclick="adjustBalanceInput(1000, true)">+&#8377;1,000</button>
+            <button type="button" class="chip-btn" onclick="adjustBalanceInput(1050, false)">Set &#8377;1,050</button>
+            <button type="button" class="chip-btn" onclick="adjustBalanceInput(5000, false)">Set &#8377;5,000</button>
+            <button type="button" class="chip-btn" onclick="adjustBalanceInput(10000, false)">Set &#8377;10,000</button>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn-green">Save User Changes</button>
+            <button type="button" class="btn-secondary" onclick="updateBalanceOnly()">Update Balance Only</button>
+            <button type="button" class="btn-secondary" onclick="reloadSelectedUserFields()">Reload Fields</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- WinGo 30s Manipulation -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">WinGo 30s Manipulation</h2>
+          <span class="badge-tag" id="forcedOutcomeBadge">Auto (Random)</span>
+        </div>
+
+        <div class="wingo-status">
+          <div>
+            <div class="wingo-stat-label">Current Period</div>
+            <div class="wingo-stat-value mono" id="wingoPeriod">--</div>
+          </div>
+          <div>
+            <div class="wingo-stat-label">Next Draw In</div>
+            <div class="wingo-stat-value" id="wingoCountdown">--s</div>
+          </div>
+          <div>
+            <div class="wingo-stat-label">Forced Outcome</div>
+            <div class="wingo-stat-value" id="wingoForcedText">Auto</div>
+          </div>
+        </div>
+
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">
+          Click a number (0&#8211;9) to force the next WinGo 30s result:
+        </div>
+        <div class="wingo-num-grid" id="wingoNumGrid">
+          <button type="button" class="num-btn is-rv" data-num="0" onclick="forceOutcome(0)">0</button>
+          <button type="button" class="num-btn is-green" data-num="1" onclick="forceOutcome(1)">1</button>
+          <button type="button" class="num-btn is-red" data-num="2" onclick="forceOutcome(2)">2</button>
+          <button type="button" class="num-btn is-green" data-num="3" onclick="forceOutcome(3)">3</button>
+          <button type="button" class="num-btn is-red" data-num="4" onclick="forceOutcome(4)">4</button>
+          <button type="button" class="num-btn is-gv" data-num="5" onclick="forceOutcome(5)">5</button>
+          <button type="button" class="num-btn is-red" data-num="6" onclick="forceOutcome(6)">6</button>
+          <button type="button" class="num-btn is-green" data-num="7" onclick="forceOutcome(7)">7</button>
+          <button type="button" class="num-btn is-red" data-num="8" onclick="forceOutcome(8)">8</button>
+          <button type="button" class="num-btn is-green" data-num="9" onclick="forceOutcome(9)">9</button>
+        </div>
+
+        <button type="button" class="btn-secondary" style="width:100%;" onclick="forceOutcome(null)">
+          Clear Override (Resume Random Draw)
+        </button>
+      </section>
     </div>
 
-    <!-- Live Recent Results -->
-    <div class="card">
-      <div class="card-title">
-        <span>Recent Win Go Results</span>
+    <!-- Withdrawal History Manager -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">
+          Withdrawal History Manager
+          <span class="badge-tag" id="withdrawCountBadge">0 records</span>
+        </h2>
+        <div class="pill-tabs">
+          <button type="button" class="pill-tab active" id="wthScopeAll" onclick="setWithdrawScope('ALL')">All Users</button>
+          <button type="button" class="pill-tab" id="wthScopeSelected" onclick="setWithdrawScope('SELECTED')">Selected User Only</button>
+        </div>
       </div>
-      <div class="table-container">
+
+      <div class="inline-add-box">
+        <p class="inline-add-title">+ Add Withdrawal Record</p>
+        <form onsubmit="event.preventDefault(); addWithdrawalRecord();">
+          <div class="inline-add-grid">
+            <div class="field">
+              <label for="wthUserId">User</label>
+              <select id="wthUserId"></select>
+            </div>
+            <div class="field">
+              <label for="wthAmount">Amount (&#8377;)</label>
+              <input id="wthAmount" type="number" step="0.01" min="1" placeholder="500" required />
+            </div>
+            <div class="field">
+              <label for="wthChannel">Channel</label>
+              <input id="wthChannel" type="text" value="Bank Card" placeholder="Bank Card / UPI / USDT" />
+            </div>
+            <div class="field">
+              <label for="wthAccount">Account / Details</label>
+              <input id="wthAccount" type="text" placeholder="e.g. ****4321 or user@upi" />
+            </div>
+            <div class="field">
+              <label for="wthStatus">Status</label>
+              <select id="wthStatus">
+                <option value="SUCCESS">SUCCESS</option>
+                <option value="PENDING">PENDING</option>
+                <option value="FAILED">FAILED</option>
+                <option value="REJECTED">REJECTED</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="wthTime">Time (optional)</label>
+              <input id="wthTime" type="text" placeholder="YYYY-MM-DD HH:MM:SS" />
+            </div>
+            <div>
+              <button type="submit" class="btn-green" style="width:100%;">Add Withdrawal</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Period</th>
-              <th>Number</th>
-              <th>Size</th>
-              <th>Color</th>
+              <th>ID</th>
+              <th>User / UID</th>
+              <th>Amount</th>
+              <th>Channel</th>
+              <th>Account</th>
+              <th>Status</th>
               <th>Time</th>
+              <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="resultsTableBody">
-            <!-- Injected via JS -->
+          <tbody id="withdrawTableBody">
+            <tr><td colspan="8" class="empty-row">Loading withdrawals...</td></tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Users & Live Bets Grid -->
-  <div class="grid">
-    <div class="card">
-      <div class="card-title">
-        <span>Registered Users</span>
+    <!-- Transaction History Manager -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">
+          Transaction History Manager
+          <span class="badge-tag" id="txnCountBadge">0 records</span>
+        </h2>
+        <div class="pill-tabs">
+          <button type="button" class="pill-tab active" id="txnScopeAll" onclick="setTxnScope('ALL')">All Users</button>
+          <button type="button" class="pill-tab" id="txnScopeSelected" onclick="setTxnScope('SELECTED')">Selected User Only</button>
+        </div>
       </div>
-      <div class="table-container">
+
+      <div class="inline-add-box">
+        <p class="inline-add-title">+ Add Transaction Record</p>
+        <form onsubmit="event.preventDefault(); addTransactionRecord();">
+          <div class="inline-add-grid">
+            <div class="field">
+              <label for="txnUserId">User</label>
+              <select id="txnUserId"></select>
+            </div>
+            <div class="field">
+              <label for="txnType">Type</label>
+              <select id="txnType">
+                <option value="RECHARGE">RECHARGE</option>
+                <option value="WITHDRAW">WITHDRAW</option>
+                <option value="BONUS">BONUS</option>
+                <option value="BET">BET</option>
+                <option value="WIN">WIN</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="txnAmount">Amount (&#8377;)</label>
+              <input id="txnAmount" type="number" step="0.01" placeholder="1000" required />
+            </div>
+            <div class="field">
+              <label for="txnChannel">Channel</label>
+              <input id="txnChannel" type="text" value="UPI" placeholder="UPI / Bank Card / System" />
+            </div>
+            <div class="field">
+              <label for="txnAccount">Account / Note</label>
+              <input id="txnAccount" type="text" placeholder="Optional note or account" />
+            </div>
+            <div class="field">
+              <label for="txnStatus">Status</label>
+              <select id="txnStatus">
+                <option value="SUCCESS">SUCCESS</option>
+                <option value="PENDING">PENDING</option>
+                <option value="FAILED">FAILED</option>
+                <option value="REJECTED">REJECTED</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="txnTime">Time (optional)</label>
+              <input id="txnTime" type="text" placeholder="YYYY-MM-DD HH:MM:SS" />
+            </div>
+            <div>
+              <button type="submit" style="width:100%;">Add Transaction</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="filter-bar">
+        <div class="pill-tabs" id="txnTypeFilters">
+          <button type="button" class="pill-tab active" data-type="ALL" onclick="setTxnTypeFilter('ALL')">All</button>
+          <button type="button" class="pill-tab" data-type="RECHARGE" onclick="setTxnTypeFilter('RECHARGE')">RECHARGE</button>
+          <button type="button" class="pill-tab" data-type="WITHDRAW" onclick="setTxnTypeFilter('WITHDRAW')">WITHDRAW</button>
+          <button type="button" class="pill-tab" data-type="BONUS" onclick="setTxnTypeFilter('BONUS')">BONUS</button>
+          <button type="button" class="pill-tab" data-type="BET" onclick="setTxnTypeFilter('BET')">BET</button>
+          <button type="button" class="pill-tab" data-type="WIN" onclick="setTxnTypeFilter('WIN')">WIN</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>UID</th>
-              <th>Phone</th>
-              <th>Balance</th>
-              <th>Invite Code</th>
-            </tr>
-          </thead>
-          <tbody id="usersTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">
-        <span>Recent Bets Log</span>
-      </div>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Period</th>
-              <th>Pick</th>
+              <th>ID</th>
+              <th>User / UID</th>
+              <th>Type</th>
               <th>Amount</th>
+              <th>Channel / Account</th>
               <th>Status</th>
-              <th>Win Payout</th>
+              <th>Time</th>
+              <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="betsTableBody"></tbody>
+          <tbody id="txnTableBody">
+            <tr><td colspan="8" class="empty-row">Loading transactions...</td></tr>
+          </tbody>
         </table>
       </div>
+    </section>
+
+    <!-- Registered Users Table -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title">
+          Registered Users
+          <span class="badge-tag" id="usersCountBadge">0 users</span>
+        </h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>UID</th>
+              <th>Invite Code</th>
+              <th>Phone</th>
+              <th>Nickname</th>
+              <th>VIP</th>
+              <th>Balance</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <tr><td colspan="8" class="empty-row">Loading users...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WinGo Results & Bets Log -->
+    <div class="two-col">
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Recent Win Go Results</h2>
+        </div>
+        <div class="table-wrap">
+          <table style="min-width: 400px;">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Number</th>
+                <th>Big / Small</th>
+                <th>Color</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTableBody">
+              <tr><td colspan="4" class="empty-row">Loading results...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Recent Bets Log</h2>
+        </div>
+        <div class="table-wrap">
+          <table style="min-width: 440px;">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>User</th>
+                <th>Selection</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="betsTableBody">
+              <tr><td colspan="5" class="empty-row">No recent bets</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
   </div>
+
+  <!-- Edit Withdrawal / Transaction Modal -->
+  <div id="editTxnModal" class="modal-mask" onclick="if (event.target === this) closeEditTxnModal();">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Edit Transaction / Withdrawal</h3>
+        <button type="button" class="btn-secondary btn-sm" onclick="closeEditTxnModal()">Close</button>
+      </div>
+      <form onsubmit="event.preventDefault(); submitEditTxnModal();">
+        <input type="hidden" id="modalOrigId" />
+        <div class="form-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+          <div class="field">
+            <label for="modalNewId">Transaction ID</label>
+            <input id="modalNewId" type="text" required />
+          </div>
+          <div class="field">
+            <label for="modalUserId">User</label>
+            <select id="modalUserId"></select>
+          </div>
+          <div class="field">
+            <label for="modalType">Type</label>
+            <select id="modalType">
+              <option value="WITHDRAW">WITHDRAW</option>
+              <option value="RECHARGE">RECHARGE</option>
+              <option value="BONUS">BONUS</option>
+              <option value="BET">BET</option>
+              <option value="WIN">WIN</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="modalAmount">Amount (&#8377;)</label>
+            <input id="modalAmount" type="number" step="0.01" required />
+          </div>
+          <div class="field">
+            <label for="modalChannel">Channel</label>
+            <input id="modalChannel" type="text" />
+          </div>
+          <div class="field">
+            <label for="modalAccount">Account / Note</label>
+            <input id="modalAccount" type="text" />
+          </div>
+          <div class="field">
+            <label for="modalStatus">Status</label>
+            <select id="modalStatus">
+              <option value="SUCCESS">SUCCESS</option>
+              <option value="PENDING">PENDING</option>
+              <option value="FAILED">FAILED</option>
+              <option value="REJECTED">REJECTED</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="modalTime">Time</label>
+            <input id="modalTime" type="text" placeholder="YYYY-MM-DD HH:MM:SS" />
+          </div>
+        </div>
+        <div class="btn-row" style="justify-content:flex-end;">
+          <button type="button" class="btn-secondary" onclick="closeEditTxnModal()">Cancel</button>
+          <button type="submit" class="btn-green">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
 
   <script>
-    async function loadData() {
-      try {
-        const res = await fetch('/api/admin/data');
-        const json = await res.json();
-        if (json.code === 0) {
-          const { wingo, users } = json.data;
-          document.getElementById('activePeriod').innerText = wingo.period;
-          const timerEl = document.getElementById('timerCount');
-          timerEl.innerText = wingo.timeRemaining + 's';
-          if (wingo.timeRemaining <= 5) {
-            timerEl.classList.add('urgent');
-          } else {
-            timerEl.classList.remove('urgent');
-          }
+    const state = {
+      activeUserId: null,
+      selectedUserId: null,
+      populatedUserId: null,
+      userEditorDirty: false,
+      users: [],
+      transactions: [],
+      wingo: {},
+      withdrawScope: 'ALL',
+      txnScope: 'ALL',
+      txnTypeFilter: 'ALL',
+      pollTimer: null
+    };
 
-          if (users && users.length > 0) {
-            document.getElementById('userPhone').value = users[0].phone;
-            // update balance field only if not focused
-            if (document.activeElement !== document.getElementById('userBalance')) {
-              document.getElementById('userBalance').value = users[0].balance.toFixed(2);
-            }
-          }
+    function escapeHtml(val) {
+      if (val === null || val === undefined) return '';
+      return String(val)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-          // Render Results
-          const resBody = document.getElementById('resultsTableBody');
-          resBody.innerHTML = (wingo.history || []).slice(0, 8).map(h => `
-            <tr>
-              <td>${h.period}</td>
-              <td><span class="ball ${h.color}">${h.number}</span></td>
-              <td>${h.size}</td>
-              <td style="text-transform:capitalize;">${h.color.replace('-', '/')}</td>
-              <td>${h.time}</td>
-            </tr>
-          `).join('');
+    function showToast(msg, isError = false) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.toggle('error', Boolean(isError));
+      el.classList.add('show');
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => el.classList.remove('show'), 2600);
+    }
 
-          // Render Users
-          const uBody = document.getElementById('usersTableBody');
-          uBody.innerHTML = (users || []).map(u => `
-            <tr>
-              <td>${u.uid}</td>
-              <td>${u.phone}</td>
-              <td style="color:var(--accent-green); font-weight:700;">₹${parseFloat(u.balance).toFixed(2)}</td>
-              <td><code>${u.inviteCode}</code></td>
-            </tr>
-          `).join('');
+    function formatNowString() {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      return (
+        d.getFullYear() + '-' +
+        pad(d.getMonth() + 1) + '-' +
+        pad(d.getDate()) + ' ' +
+        pad(d.getHours()) + ':' +
+        pad(d.getMinutes()) + ':' +
+        pad(d.getSeconds())
+      );
+    }
 
-          // Render Bets
-          const bBody = document.getElementById('betsTableBody');
-          bBody.innerHTML = (wingo.bets || []).slice(0, 10).map(b => `
-            <tr>
-              <td>${b.period}</td>
-              <td><b style="text-transform:uppercase;">${b.selection}</b></td>
-              <td>₹${b.amount}</td>
-              <td>
-                <span style="font-weight:700; color:${b.status === 'WON' ? 'var(--accent-green)' : b.status === 'LOST' ? 'var(--accent-red)' : 'var(--primary)'}">
-                  ${b.status}
-                </span>
-              </td>
-              <td>${b.winAmount > 0 ? '₹' + b.winAmount.toFixed(2) : '-'}</td>
-            </tr>
-          `).join('');
+    function getUserById(userId) {
+      return state.users.find((u) => u.id === userId) || null;
+    }
+
+    function getUserLabel(userId) {
+      const u = getUserById(userId);
+      if (!u) return userId || '--';
+      const nick = u.nickName || u.nickname || u.phone || u.id;
+      return `${nick} (UID: ${u.uid || '--'})`;
+    }
+
+    function setDirty(dirty) {
+      state.userEditorDirty = dirty;
+      const banner = document.getElementById('userDirtyBanner');
+      if (banner) banner.classList.toggle('visible', dirty);
+    }
+
+    function isUserEditorFocused() {
+      const form = document.getElementById('userEditorForm');
+      return form && document.activeElement && form.contains(document.activeElement);
+    }
+
+    function wireDirtyTracking() {
+      const ids = ['editUid', 'editInviteCode', 'editBalance', 'editPhone', 'editNickName', 'editVipLevel', 'editPassword'];
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', () => setDirty(true));
         }
-      } catch (e) {
-        console.error('Error polling data:', e);
+      });
+    }
+
+    function syncUserDropdowns() {
+      const selects = [
+        document.getElementById('targetUserSelect'),
+        document.getElementById('wthUserId'),
+        document.getElementById('txnUserId'),
+        document.getElementById('modalUserId')
+      ];
+
+      const optionsHtml = state.users
+        .map((u) => {
+          const activeTag = u.id === state.activeUserId ? ' [ACTIVE]' : '';
+          const nick = u.nickName || u.nickname || 'User';
+          return `<option value="${escapeHtml(u.id)}">${escapeHtml(nick)} (${escapeHtml(u.phone)}) - UID: ${escapeHtml(u.uid)}${activeTag}</option>`;
+        })
+        .join('');
+
+      selects.forEach((sel) => {
+        if (!sel) return;
+        const prev = sel.value;
+        if (sel.innerHTML !== optionsHtml) {
+          sel.innerHTML = optionsHtml;
+        }
+        if (sel.id === 'targetUserSelect') {
+          if (state.selectedUserId && getUserById(state.selectedUserId)) {
+            sel.value = state.selectedUserId;
+          } else if (state.activeUserId) {
+            sel.value = state.activeUserId;
+          }
+        } else if (sel.id !== 'modalUserId') {
+          if (prev && getUserById(prev)) {
+            sel.value = prev;
+          } else if (state.selectedUserId) {
+            sel.value = state.selectedUserId;
+          }
+        }
+      });
+    }
+
+    function populateUserEditor(force = false) {
+      const targetId = state.selectedUserId || state.activeUserId || (state.users[0] && state.users[0].id);
+      if (!targetId) return;
+      state.selectedUserId = targetId;
+
+      const user = getUserById(targetId);
+      if (!user) return;
+
+      document.getElementById('selectedUserBadge').textContent = `UID: ${user.uid || '--'}`;
+
+      const switchingUser = state.populatedUserId !== user.id;
+      if (!force && !switchingUser && (state.userEditorDirty || isUserEditorFocused())) {
+        return;
+      }
+
+      document.getElementById('editUid').value = user.uid || '';
+      document.getElementById('editInviteCode').value = user.inviteCode || '';
+      document.getElementById('editBalance').value = Number(user.balance || 0).toFixed(2);
+      document.getElementById('editPhone').value = user.phone || '';
+      document.getElementById('editNickName').value = user.nickName || user.nickname || '';
+      document.getElementById('editVipLevel').value = Number(user.vipLevel || 0);
+      document.getElementById('editPassword').value = '';
+      state.populatedUserId = user.id;
+      setDirty(false);
+    }
+
+    function onSelectUserChange() {
+      const sel = document.getElementById('targetUserSelect');
+      state.selectedUserId = sel.value;
+      populateUserEditor(true);
+
+      const wthSel = document.getElementById('wthUserId');
+      const txnSel = document.getElementById('txnUserId');
+      if (wthSel && state.selectedUserId) wthSel.value = state.selectedUserId;
+      if (txnSel && state.selectedUserId) txnSel.value = state.selectedUserId;
+
+      renderWithdrawTable();
+      renderTxnTable();
+    }
+
+    function selectUserForEdit(userId) {
+      state.selectedUserId = userId;
+      const sel = document.getElementById('targetUserSelect');
+      if (sel) sel.value = userId;
+      onSelectUserChange();
+      document.getElementById('userEditorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function reloadSelectedUserFields() {
+      populateUserEditor(true);
+      showToast('User fields reloaded from server');
+    }
+
+    function adjustBalanceInput(val, isDelta) {
+      const input = document.getElementById('editBalance');
+      const current = parseFloat(input.value) || 0;
+      const next = isDelta ? current + val : val;
+      input.value = Math.max(0, next).toFixed(2);
+      setDirty(true);
+    }
+
+    async function apiPost(url, payload) {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if (!res.ok || (json.code !== undefined && json.code !== 0)) {
+        throw new Error(json.msg || `Request failed (${res.status})`);
+      }
+      return json;
+    }
+
+    async function saveUserChanges() {
+      const userId = state.selectedUserId || state.activeUserId;
+      if (!userId) return showToast('No user selected', true);
+
+      const payload = {
+        userId,
+        uid: document.getElementById('editUid').value.trim(),
+        inviteCode: document.getElementById('editInviteCode').value.trim(),
+        balance: Number(document.getElementById('editBalance').value),
+        phone: document.getElementById('editPhone').value.trim(),
+        nickName: document.getElementById('editNickName').value.trim(),
+        vipLevel: Number(document.getElementById('editVipLevel').value)
+      };
+
+      const pwd = document.getElementById('editPassword').value.trim();
+      if (pwd) payload.password = pwd;
+
+      try {
+        const out = await apiPost('/api/admin/update-user', payload);
+        setDirty(false);
+        state.populatedUserId = null;
+        await loadData(false);
+        populateUserEditor(true);
+        showToast(out.msg || 'User updated successfully');
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    async function updateBalanceOnly() {
+      const userId = state.selectedUserId || state.activeUserId;
+      const balance = Number(document.getElementById('editBalance').value);
+      if (Number.isNaN(balance) || balance < 0) {
+        return showToast('Enter a valid non-negative balance', true);
+      }
+      try {
+        const out = await apiPost('/api/admin/set-balance', { userId, balance });
+        setDirty(false);
+        await loadData(false);
+        populateUserEditor(true);
+        showToast(out.msg || `Balance updated to ₹${balance.toFixed(2)}`);
+      } catch (err) {
+        showToast(err.message, true);
       }
     }
 
     async function forceOutcome(num) {
-      const alertEl = document.getElementById('outcomeAlert');
       try {
-        const res = await fetch('/api/admin/set-outcome', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ number: num })
-        });
-        const data = await res.json();
-        alertEl.style.display = 'block';
-        alertEl.innerText = data.msg;
-        setTimeout(() => alertEl.style.display = 'none', 4000);
-      } catch (e) {
-        alert('Failed to set outcome');
+        const out = await apiPost('/api/admin/set-outcome', { number: num });
+        await loadData(false);
+        showToast(out.msg || (num === null ? 'WinGo override cleared' : `Forced WinGo result: ${num}`));
+      } catch (err) {
+        showToast(err.message, true);
       }
     }
 
-    async function updateBalance() {
-      const val = parseFloat(document.getElementById('userBalance').value);
-      const alertEl = document.getElementById('balanceAlert');
+    function setWithdrawScope(scope) {
+      state.withdrawScope = scope;
+      document.getElementById('wthScopeAll').classList.toggle('active', scope === 'ALL');
+      document.getElementById('wthScopeSelected').classList.toggle('active', scope === 'SELECTED');
+      renderWithdrawTable();
+    }
+
+    function setTxnScope(scope) {
+      state.txnScope = scope;
+      document.getElementById('txnScopeAll').classList.toggle('active', scope === 'ALL');
+      document.getElementById('txnScopeSelected').classList.toggle('active', scope === 'SELECTED');
+      renderTxnTable();
+    }
+
+    function setTxnTypeFilter(type) {
+      state.txnTypeFilter = type;
+      document.querySelectorAll('#txnTypeFilters .pill-tab').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.type === type);
+      });
+      renderTxnTable();
+    }
+
+    async function addWithdrawalRecord() {
+      const userId = document.getElementById('wthUserId').value || state.selectedUserId || state.activeUserId;
+      const amount = Number(document.getElementById('wthAmount').value);
+      const channel = document.getElementById('wthChannel').value.trim() || 'Bank Card';
+      const account = document.getElementById('wthAccount').value.trim();
+      const status = document.getElementById('wthStatus').value;
+      const time = document.getElementById('wthTime').value.trim() || formatNowString();
+
+      if (!amount || amount <= 0) {
+        return showToast('Enter a valid withdrawal amount', true);
+      }
+
       try {
-        const res = await fetch('/api/admin/set-balance', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ balance: val })
+        await apiPost('/api/admin/transaction/add', {
+          userId,
+          type: 'WITHDRAW',
+          amount,
+          channel,
+          account,
+          status,
+          time
         });
-        const data = await res.json();
-        alertEl.style.display = 'block';
-        alertEl.innerText = data.msg;
-        setTimeout(() => alertEl.style.display = 'none', 4000);
-      } catch (e) {
-        alert('Failed to update balance');
+        document.getElementById('wthAmount').value = '';
+        document.getElementById('wthAccount').value = '';
+        document.getElementById('wthTime').value = '';
+        await loadData(false);
+        showToast('Withdrawal record added');
+      } catch (err) {
+        showToast(err.message, true);
       }
     }
 
-    setInterval(loadData, 1000);
-    loadData();
+    async function addTransactionRecord() {
+      const userId = document.getElementById('txnUserId').value || state.selectedUserId || state.activeUserId;
+      const type = document.getElementById('txnType').value;
+      const amount = Number(document.getElementById('txnAmount').value);
+      const channel = document.getElementById('txnChannel').value.trim() || 'System';
+      const account = document.getElementById('txnAccount').value.trim();
+      const status = document.getElementById('txnStatus').value;
+      const time = document.getElementById('txnTime').value.trim() || formatNowString();
+
+      if (Number.isNaN(amount) || amount === 0) {
+        return showToast('Enter a valid transaction amount', true);
+      }
+
+      try {
+        await apiPost('/api/admin/transaction/add', {
+          userId,
+          type,
+          amount,
+          channel,
+          account,
+          status,
+          time
+        });
+        document.getElementById('txnAmount').value = '';
+        document.getElementById('txnAccount').value = '';
+        document.getElementById('txnTime').value = '';
+        await loadData(false);
+        showToast('Transaction record added');
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    function openEditTxnModal(txnId) {
+      const txn = state.transactions.find((t) => t.id === txnId);
+      if (!txn) return showToast('Transaction not found', true);
+
+      syncUserDropdowns();
+      document.getElementById('modalOrigId').value = txn.id;
+      document.getElementById('modalNewId').value = txn.id;
+      document.getElementById('modalUserId').value = txn.userId || state.activeUserId || '';
+      document.getElementById('modalType').value = (txn.type || 'RECHARGE').toUpperCase();
+      document.getElementById('modalAmount').value = Number(txn.amount || 0);
+      document.getElementById('modalChannel').value = txn.channel || '';
+      document.getElementById('modalAccount').value = txn.account || '';
+      document.getElementById('modalStatus').value = (txn.status || 'SUCCESS').toUpperCase();
+      document.getElementById('modalTime').value = txn.time || '';
+
+      document.getElementById('editTxnModal').classList.add('open');
+    }
+
+    function closeEditTxnModal() {
+      document.getElementById('editTxnModal').classList.remove('open');
+    }
+
+    async function submitEditTxnModal() {
+      const origId = document.getElementById('modalOrigId').value;
+      const newId = document.getElementById('modalNewId').value.trim();
+      const payload = {
+        id: origId,
+        newId: newId && newId !== origId ? newId : undefined,
+        userId: document.getElementById('modalUserId').value,
+        type: document.getElementById('modalType').value,
+        amount: Number(document.getElementById('modalAmount').value),
+        channel: document.getElementById('modalChannel').value.trim(),
+        account: document.getElementById('modalAccount').value.trim(),
+        status: document.getElementById('modalStatus').value,
+        time: document.getElementById('modalTime').value.trim()
+      };
+
+      try {
+        await apiPost('/api/admin/transaction/update', payload);
+        closeEditTxnModal();
+        await loadData(false);
+        showToast('Record updated');
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    async function deleteTransactionRecord(txnId) {
+      try {
+        await apiPost('/api/admin/transaction/delete', { id: txnId });
+        await loadData(false);
+        showToast(`Deleted ${txnId}`);
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    }
+
+    function statusBadge(status) {
+      const s = String(status || 'SUCCESS').toUpperCase();
+      let cls = 'badge-success';
+      if (s === 'PENDING' || s === 'PROCESSING') cls = 'badge-pending';
+      else if (s === 'FAILED' || s === 'REJECTED' || s === 'CANCELLED') cls = 'badge-failed';
+      return `<span class="badge ${cls}">${escapeHtml(s)}</span>`;
+    }
+
+    function renderWithdrawTable() {
+      const tbody = document.getElementById('withdrawTableBody');
+      let list = state.transactions.filter((t) => String(t.type || '').toUpperCase() === 'WITHDRAW');
+      if (state.withdrawScope === 'SELECTED' && state.selectedUserId) {
+        list = list.filter((t) => t.userId === state.selectedUserId);
+      }
+      document.getElementById('withdrawCountBadge').textContent = `${list.length} record${list.length === 1 ? '' : 's'}`;
+
+      if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-row">No withdrawal records found</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list
+        .map((t) => {
+          return `
+            <tr>
+              <td class="mono">${escapeHtml(t.id)}</td>
+              <td>${escapeHtml(getUserLabel(t.userId))}</td>
+              <td style="font-weight:700; color:#fca5a5;">&#8377;${Number(t.amount || 0).toFixed(2)}</td>
+              <td>${escapeHtml(t.channel || '--')}</td>
+              <td>${escapeHtml(t.account || '--')}</td>
+              <td>${statusBadge(t.status)}</td>
+              <td class="mono">${escapeHtml(t.time || '--')}</td>
+              <td>
+                <div class="actions-cell">
+                  <button type="button" class="btn-secondary btn-sm" onclick="openEditTxnModal('${escapeHtml(t.id)}')">Edit</button>
+                  <button type="button" class="btn-red btn-sm" onclick="deleteTransactionRecord('${escapeHtml(t.id)}')">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    function renderTxnTable() {
+      const tbody = document.getElementById('txnTableBody');
+      let list = state.transactions.slice();
+      if (state.txnScope === 'SELECTED' && state.selectedUserId) {
+        list = list.filter((t) => t.userId === state.selectedUserId);
+      }
+      if (state.txnTypeFilter !== 'ALL') {
+        list = list.filter((t) => String(t.type || '').toUpperCase() === state.txnTypeFilter);
+      }
+      document.getElementById('txnCountBadge').textContent = `${list.length} record${list.length === 1 ? '' : 's'}`;
+
+      if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-row">No transaction records match this filter</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list
+        .map((t) => {
+          const type = String(t.type || 'RECHARGE').toUpperCase();
+          const isCredit = type === 'RECHARGE' || type === 'WIN' || type === 'BONUS';
+          const amtColor = isCredit ? '#6ee7a8' : '#fca5a5';
+          const sign = isCredit ? '+' : '-';
+          const channelAcc = [t.channel, t.account].filter(Boolean).join(' / ') || '--';
+          return `
+            <tr>
+              <td class="mono">${escapeHtml(t.id)}</td>
+              <td>${escapeHtml(getUserLabel(t.userId))}</td>
+              <td><span class="badge badge-type-${escapeHtml(type)}">${escapeHtml(type)}</span></td>
+              <td style="font-weight:700; color:${amtColor};">${sign}&#8377;${Math.abs(Number(t.amount || 0)).toFixed(2)}</td>
+              <td>${escapeHtml(channelAcc)}</td>
+              <td>${statusBadge(t.status)}</td>
+              <td class="mono">${escapeHtml(t.time || '--')}</td>
+              <td>
+                <div class="actions-cell">
+                  <button type="button" class="btn-secondary btn-sm" onclick="openEditTxnModal('${escapeHtml(t.id)}')">Edit</button>
+                  <button type="button" class="btn-red btn-sm" onclick="deleteTransactionRecord('${escapeHtml(t.id)}')">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    function renderUsersTable() {
+      const tbody = document.getElementById('usersTableBody');
+      document.getElementById('usersCountBadge').textContent = `${state.users.length} user${state.users.length === 1 ? '' : 's'}`;
+      if (!state.users.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-row">No registered users</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = state.users
+        .map((u) => {
+          const isActive = u.id === state.activeUserId;
+          const nick = u.nickName || u.nickname || '--';
+          return `
+            <tr>
+              <td class="mono">${escapeHtml(u.id)}${isActive ? ' <span class="badge badge-success">ACTIVE</span>' : ''}</td>
+              <td class="mono">${escapeHtml(u.uid || '--')}</td>
+              <td class="mono">${escapeHtml(u.inviteCode || '--')}</td>
+              <td class="mono">${escapeHtml(u.phone || '--')}</td>
+              <td>${escapeHtml(nick)}</td>
+              <td>VIP ${Number(u.vipLevel || 0)}</td>
+              <td style="font-weight:700; color:#6ee7a8;">&#8377;${Number(u.balance || 0).toFixed(2)}</td>
+              <td>
+                <button type="button" class="btn-secondary btn-sm" onclick="selectUserForEdit('${escapeHtml(u.id)}')">Edit</button>
+              </td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    function renderWingoSection() {
+      const w = state.wingo || {};
+      const period = w.currentPeriod || w.period || '--';
+      const forced = w.forcedOutcome !== undefined ? w.forcedOutcome : (w.forcedNumber !== undefined ? w.forcedNumber : null);
+      const secLeft = typeof w.timeRemaining === 'number'
+        ? w.timeRemaining
+        : (typeof w.secondsLeft === 'number'
+          ? w.secondsLeft
+          : (30 - (Math.floor(Date.now() / 1000) % 30)));
+
+      document.getElementById('topPeriod').textContent = period;
+      document.getElementById('topCountdown').textContent = `${secLeft}s`;
+      document.getElementById('wingoPeriod').textContent = period;
+      document.getElementById('wingoCountdown').textContent = `${secLeft}s`;
+
+      const hasForced = forced !== null && forced !== undefined && forced !== '';
+      const forcedLabel = hasForced ? `Number ${forced}` : 'Auto (Random)';
+      document.getElementById('wingoForcedText').textContent = hasForced ? `#${forced}` : 'Auto';
+      document.getElementById('forcedOutcomeBadge').textContent = forcedLabel;
+
+      document.querySelectorAll('#wingoNumGrid .num-btn').forEach((btn) => {
+        btn.classList.toggle('active', hasForced && Number(btn.dataset.num) === Number(forced));
+      });
+
+      const history = Array.isArray(w.history) ? w.history : (Array.isArray(w.results) ? w.results : []);
+      const resBody = document.getElementById('resultsTableBody');
+      if (!history.length) {
+        resBody.innerHTML = '<tr><td colspan="4" class="empty-row">No draw history yet</td></tr>';
+      } else {
+        resBody.innerHTML = history.slice(0, 10).map((h) => {
+          const num = Number(h.number);
+          const bs = h.bigSmall || h.size || (num >= 5 ? 'Big' : 'Small');
+          const color = h.color || (num === 0 ? 'Red Violet' : num === 5 ? 'Green Violet' : num % 2 === 0 ? 'Red' : 'Green');
+          return `
+            <tr>
+              <td class="mono">${escapeHtml(h.period || '--')}</td>
+              <td style="font-weight:700;">${escapeHtml(num)}</td>
+              <td>${escapeHtml(bs)}</td>
+              <td>${escapeHtml(color)}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      const bets = Array.isArray(w.bets) ? w.bets : [];
+      const betsBody = document.getElementById('betsTableBody');
+      if (!bets.length) {
+        betsBody.innerHTML = '<tr><td colspan="5" class="empty-row">No recent bets</td></tr>';
+      } else {
+        betsBody.innerHTML = bets.slice(0, 12).map((b) => {
+          const sel = b.select || b.selection || b.choice || b.betOn || '--';
+          const status = b.status || b.result || 'PENDING';
+          return `
+            <tr>
+              <td class="mono">${escapeHtml(b.period || '--')}</td>
+              <td>${escapeHtml(b.userId || b.phone || '--')}</td>
+              <td>${escapeHtml(sel)}</td>
+              <td>&#8377;${Number(b.amount || 0).toFixed(2)}</td>
+              <td>${statusBadge(status)}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    async function loadData(manual = false) {
+      try {
+        const res = await fetch('/api/admin/data', { cache: 'no-store' });
+        const json = await res.json();
+        if (!res.ok || json.code !== 0 || !json.data) {
+          throw new Error(json.msg || 'Failed to fetch admin data');
+        }
+
+        document.getElementById('connDot').classList.remove('offline');
+
+        const data = json.data;
+        state.activeUserId = data.activeUserId || null;
+        state.users = Array.isArray(data.users) ? data.users : [];
+        state.transactions = Array.isArray(data.transactions) ? data.transactions : [];
+        state.wingo = data.wingo || {};
+
+        if (!state.selectedUserId || !getUserById(state.selectedUserId)) {
+          state.selectedUserId = state.activeUserId || (state.users[0] && state.users[0].id) || null;
+        }
+
+        const activeUser = getUserById(state.activeUserId);
+        document.getElementById('topActiveUser').textContent = activeUser
+          ? `${activeUser.phone} (UID ${activeUser.uid})`
+          : '--';
+
+        syncUserDropdowns();
+        populateUserEditor(false);
+        renderWithdrawTable();
+        renderTxnTable();
+        renderUsersTable();
+        renderWingoSection();
+
+        if (manual) {
+          showToast('Data refreshed');
+        }
+      } catch (err) {
+        document.getElementById('connDot').classList.add('offline');
+        if (manual) showToast(err.message, true);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeEditTxnModal();
+    });
+
+    wireDirtyTracking();
+    loadData(false);
+    state.pollTimer = setInterval(() => loadData(false), 1500);
   </script>
 </body>
 </html>
